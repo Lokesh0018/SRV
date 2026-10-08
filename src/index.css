@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap');
 
 :root {
   /* Warm monochrome canvas */
@@ -10,8 +10,8 @@
   --color-border: #EAEAEA;
 
   /* Scarce brand accent */
-  --color-accent: #EA580C;
-  --color-accent-deep: #C2410C;
+  --color-accent: #F36A16;
+  --color-accent-deep: #F26B18;
 
   /* Aliases kept for the other sections still using them */
   --color-warm-white: #F7F6F3;
@@ -19,11 +19,12 @@
   --color-concrete-ink: #787774;
   --color-charcoal: #2F3437;
   --color-navy: #111111;
-  --color-orange: #EA580C;
+  --color-orange: #F36A16;
+  --srv-orange: #F36A16;
 
   --font-primary: 'Geist', 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --font-serif: 'Instrument Serif', 'Newsreader', Georgia, serif;
-  --font-display: 'Montserrat', 'Geist', 'Helvetica Neue', sans-serif;
+  --font-display: 'Space Grotesk', 'Geist', 'Helvetica Neue', sans-serif;
   --font-mono: 'Geist Mono', 'SF Mono', 'JetBrains Mono', monospace;
 
   --ease-quiet: cubic-bezier(0.16, 1, 0.3, 1);

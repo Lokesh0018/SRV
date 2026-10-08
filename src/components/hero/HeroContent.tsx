@@ -11,18 +11,18 @@ const scrollToId = (id: string) => {
 const HeroContent: React.FC = () => (
   <div className="srv-content">
     <p className="srv-eyebrow">
-      <span className="srv-eyebrow-brand">From ground to sky</span>
+      <span className="srv-eyebrow-num">01 /</span> FROM GROUND TO SKY
     </p>
 
     <h1 className="srv-title" id="srv-hero-title">
       <span className="srv-title-mask"><span className="srv-title-line">ENGINEERING</span></span>
       <span className="srv-title-mask"><span className="srv-title-line">SPACES.</span></span>
-      <span className="srv-title-mask"><span className="srv-title-line srv-title-accent">BUILDING</span></span>
-      <span className="srv-title-mask"><span className="srv-title-line srv-title-accent">POSSIBILITIES.</span></span>
+      <span className="srv-title-mask srv-title-mask-accent"><span className="srv-title-line srv-title-accent">BUILDING</span></span>
+      <span className="srv-title-mask srv-title-mask-accent"><span className="srv-title-line srv-title-accent">POSSIBILITIES.</span></span>
     </h1>
 
     <p className="srv-lede">
-      Structural Engineering &bull; Architecture &bull; Construction &bull; Interiors
+      Structural Engineering &middot; Architecture &middot; Construction &middot; Interiors
     </p>
 
     <div className="srv-actions">

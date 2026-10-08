@@ -54,8 +54,9 @@ nav.scrolled .logo img,
 .nav-links {
   display: flex;
   align-items: center;
-  gap: clamp(1.9rem, 3.9vw, 4.25rem);
-  margin: 0 auto;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  margin-left: auto;
+  margin-right: clamp(2.5rem, 5vw, 5.5rem);
 }
 
 .nav-link {
@@ -63,9 +64,9 @@ nav.scrolled .logo img,
   display: inline-block;
   padding: 0.5rem 0;
   font-family: var(--font-display);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-ink);
   transition: color 0.2s ease;
@@ -84,27 +85,27 @@ nav.scrolled .logo img,
   transition: transform 0.25s var(--ease-quiet);
 }
 
-.nav-link:hover { color: var(--color-ink-strong); }
+.nav-link:hover { color: var(--color-accent); }
 .nav-link:hover::after,
 .nav-link.is-active::after { transform: scaleX(1); }
-.nav-link.is-active { color: var(--color-ink-strong); font-weight: 600; }
+.nav-link.is-active { color: var(--color-ink-strong); }
 
 .nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
   position: relative;
-  min-height: 40px;
-  padding: 0 1.6rem;
-  border-radius: 999px;
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: 3px;
   background: var(--color-accent);
   color: #fff;
   font-family: var(--font-display);
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  box-shadow: 0 10px 24px -10px rgba(234, 88, 12, 0.7);
+  box-shadow: none;
   transition: background-color 0.2s ease;
 }
 
@@ -156,4 +157,25 @@ nav.scrolled .logo img,
   .nav-links {
     display: none;
   }
+}
+
+/* ---------------------------------------------------------------------
+   Over the hero footage (SRVHero sets body[data-hero-dark]): light type
+   and the light logo until the nav picks up its solid scrolled bar.
+   --------------------------------------------------------------------- */
+.logo .logo-light { display: none; }
+
+body[data-hero-dark] .site-nav:not(.scrolled):not(.is-open) .logo-dark { display: none; }
+body[data-hero-dark] .site-nav:not(.scrolled):not(.is-open) .logo-light { display: block; }
+body[data-hero-dark] .site-nav:not(.scrolled):not(.is-open) .nav-link { 
+  color: rgba(255, 255, 255, 0.82); 
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+body[data-hero-dark] .site-nav:not(.scrolled):not(.is-open) .nav-link:hover { color: var(--color-accent); }
+body[data-hero-dark] .site-nav:not(.scrolled):not(.is-open) .nav-toggle {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }

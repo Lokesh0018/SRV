@@ -4,11 +4,10 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import '../styles/Navbar.css';
 
 const LINKS = [
-  { label: 'About', href: '/#about' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Expertise', href: '/#expertise' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'HOME', href: '/' },
+  { label: 'ABOUT', href: '/#about' },
+  { label: 'SERVICES', href: '/#services' },
+  { label: 'CONTACT', href: '/#contact' },
 ];
 
 const Navbar: React.FC = () => {
@@ -35,7 +34,9 @@ const Navbar: React.FC = () => {
     <nav className={`site-nav${scrolled ? ' scrolled' : ''}${open ? ' is-open' : ''}`} aria-label="Primary">
       <div className="nav-content">
         <Link to="/" className="logo" onClick={close}>
-          <img src="/SRV_Logo.png" alt="SRV Associates — home" width={822} height={720} />
+          <img className="logo-dark" src="/SRV_Logo.png" alt="SRV Associates — home" width={822} height={720} />
+          {/* light lockup, shown while the nav floats over the hero footage */}
+          <img className="logo-light" src="/SRV_Logo_light.png" alt="" aria-hidden="true" width={822} height={720} />
         </Link>
 
         <div className="nav-right">
@@ -49,7 +50,7 @@ const Navbar: React.FC = () => {
             ))}
             <li className="nav-links-cta">
               <Link to="/#contact" className="nav-cta" onClick={close}>
-                Start a project
+                START A PROJECT
                 <ArrowUpRight size={15} strokeWidth={1.75} aria-hidden="true" />
               </Link>
             </li>

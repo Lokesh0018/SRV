@@ -1,38 +1,162 @@
+/* =====================================================================
+   Approach — "From idea to built form"
+   Editorial header, a drawn dimension line, three pillars.
+   ===================================================================== */
+
 .idea-section {
-  padding: clamp(6rem, 14vh, 9rem) 0;
+  position: relative;
+  padding-block: clamp(6rem, 16vh, 11rem) clamp(5rem, 12vh, 8rem);
   background-color: var(--color-canvas);
   color: var(--color-ink-strong);
 }
 
 .idea-inner {
-  max-width: 72rem;
+  max-width: 80rem;
   margin: 0 auto;
-  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  padding-inline: var(--hp-gutter);
+}
+
+/* ---- header ---------------------------------------------------------- */
+.idea-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 2.5rem clamp(2.5rem, 7vw, 7rem);
+  align-items: end;
 }
 
 .idea-index {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.5rem, 3.5vh, 2.25rem);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 2rem;
+  color: #55534f;
+}
+.idea-index-num { color: var(--color-accent); }
+.idea-index-sep {
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
 }
 
 .idea-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.6rem, 4.6vw, 5.25rem);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+}
+.idea-title-mask { display: block; }
+.idea-title-line { display: inline-block; }
+.idea-title em {
+  font-style: normal;
+  color: var(--color-accent);
 }
 
+.idea-aside { padding-bottom: 0.5rem; }
+
 .idea-copy {
+  max-width: 34ch;
   font-family: var(--font-primary);
-  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
   line-height: 1.6;
-  max-width: 600px;
-  color: var(--color-ink-muted);
+  color: #3a3b3d;
+}
+
+.idea-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  margin-top: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-strong);
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.idea-link svg { transition: transform 0.25s var(--ease-quiet); }
+.idea-link:hover { color: var(--color-accent); border-bottom-color: currentColor; }
+.idea-link:hover svg { transform: translateX(4px); }
+
+/* ---- dimension line -------------------------------------------------- */
+.idea-rule {
+  position: relative;
+  height: 13px;
+  margin-block: clamp(3.5rem, 9vh, 6rem) clamp(1.75rem, 4vh, 2.5rem);
+}
+.idea-rule-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(17, 17, 17, 0.28);
+  transform-origin: left;
+}
+.idea-rule-tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(17, 17, 17, 0.45);
+  transform: translateX(-0.5px) rotate(35deg);
+}
+
+/* ---- pillars --------------------------------------------------------- */
+.idea-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem clamp(2rem, 4vw, 4rem);
+  list-style: none;
+}
+
+.idea-pillar { padding-right: clamp(0rem, 2vw, 2rem); }
+
+.idea-pillar-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+}
+
+.idea-pillar-title {
+  margin-top: 0.9rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.idea-pillar-copy {
+  max-width: 36ch;
+  margin-top: 0.75rem;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #4a4b4d;
+}
+
+/* ---- responsive ------------------------------------------------------ */
+@media (max-width: 900px) {
+  .idea-head { grid-template-columns: 1fr; align-items: start; }
+  .idea-pillars { grid-template-columns: 1fr; gap: 0; }
+  .idea-pillar {
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+  }
+  .idea-pillar:first-child { border-top: 0; padding-top: 0; }
+  /* the dimension line reads as three equal bays only in the row layout */
+  .idea-rule-tick { display: none; }
 }
