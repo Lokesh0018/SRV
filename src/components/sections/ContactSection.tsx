@@ -1,30 +1,31 @@
 import React from 'react';
+import '../../styles/ContactSection.css';
 
 const ContactSection: React.FC = () => {
   return (
-    <section id="contact" style={{ backgroundColor: 'var(--color-navy)', color: 'var(--color-warm-white)', padding: '10rem 0' }}>
-      <div className="container" style={{ textAlign: 'center', maxWidth: '800px' }}>
-        <h2 className="text-h2" style={{ marginBottom: '2rem' }}>Let's Build Something Real.</h2>
-        <p style={{ color: 'var(--color-concrete)', fontSize: '1.2rem', marginBottom: '4rem' }}>
+    <section id="contact" className="contact-section">
+      <div className="container contact-container">
+        <h2 className="text-h2 contact-heading">Let's Build Something Real.</h2>
+        <p className="contact-text">
           From conceptual architecture to structural execution, partner with SRV Associates to engineer your next vision.
         </p>
         
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '4rem' }}>
+        <div className="contact-actions">
           <button className="btn-primary">Start Your Project</button>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '4rem', textAlign: 'left' }}>
+        <div className="contact-grid">
           <div>
-            <h4 style={{ color: 'var(--color-orange)', marginBottom: '1rem', fontSize: '0.8rem' }}>LOCATION</h4>
-            <p style={{ color: '#aaa' }}>Visakhapatnam, Andhra Pradesh<br/>India</p>
+            <h4 className="contact-label">LOCATION</h4>
+            <p className="contact-info">Visakhapatnam, Andhra Pradesh<br/>India</p>
           </div>
           <div>
-            <h4 style={{ color: 'var(--color-orange)', marginBottom: '1rem', fontSize: '0.8rem' }}>CONTACT</h4>
-            <p style={{ color: '#aaa' }}>+91 90000 00000<br/>info@srvassociate.in</p>
+            <h4 className="contact-label">CONTACT</h4>
+            <p className="contact-info">+91 90000 00000<br/>info@srvassociate.in</p>
           </div>
           <div>
-            <h4 style={{ color: 'var(--color-orange)', marginBottom: '1rem', fontSize: '0.8rem' }}>SOCIAL</h4>
-            <p style={{ color: '#aaa' }}>LinkedIn<br/>Instagram</p>
+            <h4 className="contact-label">SOCIAL</h4>
+            <p className="contact-info">LinkedIn<br/>Instagram</p>
           </div>
         </div>
       </div>

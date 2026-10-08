@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/IdeaSection.css';
 
 /** Bridge out of the hero: continues the "ground to sky" story. */
 const IdeaSection: React.FC = () => (

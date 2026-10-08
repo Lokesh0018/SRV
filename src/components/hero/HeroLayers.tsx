@@ -2,7 +2,6 @@ import React from 'react';
 import HeroLayer from './HeroLayer';
 import { ASSET_DIR } from './heroData';
 
-
 /*
  * The 2.5D environment. Layers sit inside a 16:9 "stage" that covers the hero
  * (see .srv-stage) so every asset keeps its aspect ratio and the composition
@@ -38,11 +37,14 @@ const HeroLayers: React.FC = () => (
         </div>
       </HeroLayer>
 
-      <HeroLayer className="srv-l-blueprint" src="05-blueprint.webp" depth={0.25} mouse={14} width={1500} height={771} />
+      {/* <HeroLayer className="srv-l-blueprint" src="05-blueprint.webp" depth={0.25} mouse={14} width={1500} height={771} /> */}
       <HeroLayer className="srv-l-structure" src="06-structure.webp" depth={0.25} mouse={16} width={1300} height={706} />
-      <HeroLayer className="srv-l-drawing" depth={0.25} mouse={14}>
-        {/* removed BlueprintOverlay as requested by user */}
-      </HeroLayer>
+      {/* <HeroLayer className="srv-l-drawing" depth={0.25} mouse={14}>
+        <BlueprintOverlay />
+      </HeroLayer> */}
+
+      {/* ground-level haze: separates the architecture from the near site */}
+      <div className="srv-haze srv-haze-near" />
 
       <HeroLayer className="srv-l-survey" src="08-survey.webp" depth={0.35} mouse={20} width={900} height={482}>
         <span className="srv-survey-target">
@@ -56,6 +58,8 @@ const HeroLayers: React.FC = () => (
       <HeroLayer className="srv-l-excavator" src="12-excavator.webp" depth={0.4} mouse={30} width={1200} height={668} />
 
       <div className="srv-dust" />
+      {/* one golden-hour grade over every layer so they read as a single plate */}
+      <div className="srv-grade" />
     </div>
   </div>
 );

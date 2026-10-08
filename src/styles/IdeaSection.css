@@ -1,0 +1,38 @@
+.idea-section {
+  padding: clamp(6rem, 14vh, 9rem) 0;
+  background-color: var(--color-canvas);
+  color: var(--color-ink-strong);
+}
+
+.idea-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+}
+
+.idea-index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 2rem;
+}
+
+.idea-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.idea-copy {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  line-height: 1.6;
+  max-width: 600px;
+  color: var(--color-ink-muted);
+}

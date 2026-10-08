@@ -11,44 +11,42 @@ const scrollToId = (id: string) => {
 const HeroContent: React.FC = () => (
   <div className="srv-content">
     <p className="srv-eyebrow">
-      <span className="srv-eyebrow-brand">SRV Associates</span>
-      <span className="srv-eyebrow-disciplines">Architecture &middot; Engineering &middot; Construction</span>
+      <span className="srv-eyebrow-brand">From ground to sky</span>
     </p>
 
     <h1 className="srv-title" id="srv-hero-title">
-      <span className="srv-title-mask"><span className="srv-title-line">Engineering</span></span>
-      <span className="srv-title-mask"><span className="srv-title-line">spaces.</span></span>
-      <span className="srv-title-mask"><span className="srv-title-line srv-title-accent">Building</span></span>
-      <span className="srv-title-mask"><span className="srv-title-line srv-title-accent">possibilities.</span></span>
+      <span className="srv-title-mask"><span className="srv-title-line">ENGINEERING</span></span>
+      <span className="srv-title-mask"><span className="srv-title-line">SPACES.</span></span>
+      <span className="srv-title-mask"><span className="srv-title-line srv-title-accent">BUILDING</span></span>
+      <span className="srv-title-mask"><span className="srv-title-line srv-title-accent">POSSIBILITIES.</span></span>
     </h1>
 
     <p className="srv-lede">
-      From precise surveying and structural engineering to architecture, construction and
-      interiors&nbsp;&mdash; we transform ideas into spaces built to last.
+      Structural Engineering &bull; Architecture &bull; Construction &bull; Interiors
     </p>
 
     <div className="srv-actions">
       <button type="button" className="srv-btn srv-btn-primary" onClick={() => scrollToId('projects')}>
-        Explore our work
-        <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
+        EXPLORE OUR WORK
+        <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
       </button>
       <button type="button" className="srv-btn srv-btn-ghost" onClick={() => scrollToId('contact')}>
-        Start a project
+        START A PROJECT
       </button>
     </div>
 
     <dl className="srv-facts">
       <div className="srv-fact">
         <dt>15+</dt>
-        <dd>Years experience</dd>
+        <dd>Years</dd>
       </div>
       <div className="srv-fact">
         <dt>100+</dt>
         <dd>Projects</dd>
       </div>
       <div className="srv-fact">
-        <dt>Visakhapatnam</dt>
-        <dd>Andhra Pradesh</dd>
+        <dt>Vizag</dt>
+        <dd>Based</dd>
       </div>
     </dl>
   </div>

@@ -1,19 +1,22 @@
 import React from 'react';
 
 /*
- * Technical drawing drawn over the scene. Coordinates live in the 1600×900
- * stage space so lines stay registered to the building/structure layers.
- * Every stroke uses pathLength="1" so GSAP can draw it with a 0→1 dashoffset.
+ * Technical drawing ghosted over the completed building. Coordinates live in
+ * the 1600×900 stage space and are registered to .srv-l-building
+ * (x 796–1532, ground y 729, roof y 414) so the lines stay on the architecture
+ * and never reach the copy column. Every stroke uses pathLength="1" so GSAP
+ * can draw it with a 0→1 dashoffset.
  */
 
-const GRID_X = [625, 748, 871, 994, 1117, 1240, 1363, 1486];
-const GRID_LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const GRID_X = [810, 952, 1094, 1236, 1378, 1520];
+const GRID_LABELS = ['A', 'B', 'C', 'D', 'E', 'F'];
 const LEVELS = [
-  { y: 711, label: 'GL ±0.000' },
-  { y: 607, label: 'L1 +3.600' },
-  { y: 503, label: 'L2 +7.200' },
-  { y: 399, label: 'RF +10.800' },
+  { y: 729, label: 'GL ±0.000' },
+  { y: 624, label: 'L1 +3.600' },
+  { y: 519, label: 'L2 +7.200' },
+  { y: 414, label: 'RF +10.800' },
 ];
+const MARKERS = [952, 1236, 1378];
 
 const BlueprintOverlay: React.FC = () => (
   <svg className="srv-blueprint-svg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
@@ -21,9 +24,9 @@ const BlueprintOverlay: React.FC = () => (
     <g className="bp-grid">
       {GRID_X.map((x, i) => (
         <g key={x}>
-          <line className="bp-draw" pathLength={1} x1={x} y1={330} x2={x} y2={728} />
-          <circle className="bp-draw" pathLength={1} cx={x} cy={314} r={11} />
-          <text className="bp-text" x={x} y={318}>{GRID_LABELS[i]}</text>
+          <line className="bp-draw" pathLength={1} x1={x} y1={402} x2={x} y2={746} />
+          <circle className="bp-draw" pathLength={1} cx={x} cy={388} r={10} />
+          <text className="bp-text" x={x} y={391.5}>{GRID_LABELS[i]}</text>
         </g>
       ))}
     </g>
@@ -32,45 +35,33 @@ const BlueprintOverlay: React.FC = () => (
     <g className="bp-levels">
       {LEVELS.map((l) => (
         <g key={l.y}>
-          <line className="bp-draw bp-dash" pathLength={1} x1={600} y1={l.y} x2={1500} y2={l.y} />
-          <path className="bp-draw" pathLength={1} d={`M1500 ${l.y} l-8 -8 h16 z`} />
-          <text className="bp-text bp-text-end" x={1488} y={l.y - 6}>{l.label}</text>
+          <line className="bp-draw" pathLength={1} x1={796} y1={l.y} x2={1532} y2={l.y} />
+          <text className="bp-text bp-text-end" x={1516} y={l.y - 6}>{l.label}</text>
         </g>
       ))}
     </g>
 
-    {/* Overall dimension string */}
+    {/* Overall dimension string under the building */}
     <g className="bp-dims">
-      <line className="bp-draw" pathLength={1} x1={625} y1={762} x2={1486} y2={762} />
-      {[625, 871, 1117, 1363, 1486].map((x) => (
-        <line key={x} className="bp-draw" pathLength={1} x1={x - 6} y1={768} x2={x + 6} y2={756} />
+      <line className="bp-draw" pathLength={1} x1={810} y1={770} x2={1520} y2={770} />
+      {GRID_X.map((x) => (
+        <line key={x} className="bp-draw" pathLength={1} x1={x - 5} y1={775} x2={x + 5} y2={765} />
       ))}
-      <text className="bp-text" x={748} y={754}>7 200</text>
-      <text className="bp-text" x={994} y={754}>7 200</text>
-      <text className="bp-text" x={1240} y={754}>7 200</text>
-      <text className="bp-text" x={1424} y={754}>3 600</text>
-
-      <line className="bp-draw" pathLength={1} x1={600} y1={399} x2={600} y2={711} />
-      {[399, 503, 607, 711].map((y) => (
-        <line key={y} className="bp-draw" pathLength={1} x1={594} y1={y + 6} x2={606} y2={y - 6} />
+      {GRID_X.slice(0, -1).map((x) => (
+        <text key={x} className="bp-text" x={x + 71} y={762}>7 100</text>
       ))}
     </g>
 
-    {/* Orange accents: survey sight line + setting-out markers */}
+    {/* Orange accents: survey sight line + setting-out markers on the ground line */}
     <g className="bp-accent">
-      <path className="bp-draw" pathLength={1} d="M547 797 L748 711 L1117 711" />
-      {[
-        [748, 711],
-        [1117, 711],
-        [1363, 711],
-      ].map(([x, y]) => (
-        <g key={x} className="bp-marker">
-          <circle className="bp-draw" pathLength={1} cx={x} cy={y} r={9} />
-          <line className="bp-draw" pathLength={1} x1={x - 16} y1={y} x2={x + 16} y2={y} />
-          <line className="bp-draw" pathLength={1} x1={x} y1={y - 16} x2={x} y2={y + 16} />
+      <path className="bp-draw" pathLength={1} d="M585 774 L952 729 L1236 729" />
+      {MARKERS.map((x) => (
+        <g key={x}>
+          <circle className="bp-draw" pathLength={1} cx={x} cy={729} r={7} />
+          <line className="bp-draw" pathLength={1} x1={x - 13} y1={729} x2={x + 13} y2={729} />
+          <line className="bp-draw" pathLength={1} x1={x} y1={716} x2={x} y2={742} />
         </g>
       ))}
-      <text className="bp-text bp-text-accent" x={566} y={812}>SET-OUT 01</text>
     </g>
   </svg>
 );

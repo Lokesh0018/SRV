@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../styles/ServicesSection.css';
 
 const services = [
   { id: '01', title: 'Survey' },
@@ -15,34 +16,22 @@ const ServicesSection: React.FC = () => {
 
   return (
     <section id="services" className="services-section">
-      <div className="container" style={{ position: 'relative', height: '100%' }}>
-        <h2 className="text-h2" style={{ position: 'absolute', top: 0, left: '2rem' }}>Our Expertise.</h2>
+      <div className="container services-container">
+        <h2 className="text-h2 services-heading">Our Expertise.</h2>
         
-        <div style={{ 
-          position: 'absolute', 
-          top: '50%', 
-          left: '2rem', 
-          transform: 'translateY(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.5rem'
-        }}>
+        <div className="services-list">
           {services.map(srv => (
             <div 
               key={srv.id}
+              className="service-item"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                cursor: 'pointer',
                 opacity: active === srv.id ? 1 : 0.4,
-                transition: 'opacity 0.3s ease'
               }}
               onMouseEnter={() => setActive(srv.id)}
               onMouseLeave={() => setActive(null)}
             >
-              <span style={{ color: 'var(--color-orange)', fontSize: '0.8rem', fontWeight: 600 }}>{srv.id}</span>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 400 }}>{srv.title}</h3>
+              <span className="service-id">{srv.id}</span>
+              <h3 className="service-title">{srv.title}</h3>
             </div>
           ))}
         </div>

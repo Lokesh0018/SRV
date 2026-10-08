@@ -1,0 +1,69 @@
+.about-section {
+  padding: 10rem 0;
+}
+
+.about-heading {
+  margin-bottom: 4rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.about-text {
+  color: var(--color-ink-muted);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.stat-number {
+  font-size: 3rem;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+}
+
+.about-graphics-container {
+  position: relative;
+}
+
+.about-graphic-border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-ink-muted);
+  opacity: 0.2;
+}
+
+.about-graphic-line-h {
+  position: absolute;
+  top: 10%;
+  left: -5%;
+  width: 110%;
+  height: 1px;
+  background-color: var(--color-accent);
+  opacity: 0.5;
+}
+
+.about-graphic-line-v {
+  position: absolute;
+  left: 10%;
+  top: -5%;
+  height: 110%;
+  width: 1px;
+  background-color: var(--color-accent);
+  opacity: 0.5;
+}
