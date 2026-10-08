@@ -1,0 +1,547 @@
+/* =====================================================================
+   SRV hero — "From ground to sky"
+   ===================================================================== */
+
+.srv-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 720px;
+  overflow: hidden;
+  background: var(--srv-navy);
+  color: var(--srv-charcoal);
+}
+
+/* Scaled on exit; the navy ground shows around it like a mount */
+.srv-hero-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  transform-origin: 50% 0%;
+  background: #E9E2D6;
+}
+
+/* ---------------------------------------------------------------------
+   Environment
+   The stage is a fixed 16:9 plane that covers the frame (like object-fit:
+   cover) and anchors bottom-right, so the composition never distorts and
+   any cropping happens on the copy side / in the sky.
+   --------------------------------------------------------------------- */
+.srv-env {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.srv-stage {
+  position: absolute;
+  /* crop overflow 35% from the copy side, 65% from the right edge */
+  right: calc((100cqw - max(100cqw, 100cqh * 16 / 9)) * var(--stage-crop-right, 0.65));
+  bottom: 0;
+  width: max(100cqw, 100cqh * 16 / 9);
+  aspect-ratio: 16 / 9;
+}
+
+.srv-layer {
+  position: absolute;
+  will-change: transform;
+}
+
+.srv-layer-mover,
+.srv-layer-art {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.srv-layer img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+/* 01 — sky: the one full-bleed plate, oversized for drift */
+.srv-l-sky { inset: -6% -4% -2%; }
+.srv-l-sky img { height: 100%; object-fit: cover; object-position: 70% 60%; }
+
+/* 02 — distant city + hills on the horizon */
+.srv-l-landscape { left: -4%; width: 108%; bottom: 15%; }
+.srv-l-landscape img { filter: blur(1px) saturate(0.9); opacity: 0.92; }
+
+/* warm atmospheric band between the hills and the site */
+.srv-haze {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22%;
+  height: 26%;
+  background: linear-gradient(180deg, transparent, rgba(244, 214, 170, 0.38) 55%, transparent);
+}
+
+/* 07 — crane: mast behind the finished building, jib reaching over the frame */
+.srv-l-crane { left: 45.5%; width: 42%; bottom: 36%; }
+.srv-l-crane-rig .srv-layer-art { aspect-ratio: 1400 / 787; }
+.srv-crane-trolley { position: absolute; inset: 0; will-change: transform; }
+.srv-l-crane-rig .srv-crane-piece { position: absolute; height: auto; }
+.srv-l-crane-rig .srv-crane-trolley-img { left: 22.081%; top: 39.397%; width: 9.074%; }
+.srv-l-crane-rig .srv-crane-cables { left: 24.743%; top: 50.592%; width: 2.722%; transform-origin: 50% 0%; }
+.srv-l-crane-rig .srv-crane-hook { left: 24.441%; top: 67.815%; width: 3.206%; }
+
+/* 03 — terrain / earthworks */
+.srv-l-terrain { left: -3%; width: 106%; bottom: -9%; }
+.srv-l-terrain img { filter: blur(0.5px); }
+
+/* 04 — finished building: the focal point */
+.srv-l-building { left: 46%; width: 48%; bottom: 21%; transform-origin: 50% 100%; }
+
+/* light rays from the low sun (right) */
+.srv-rays {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background:
+    linear-gradient(242deg, rgba(255, 214, 150, 0.32) 0%, transparent 34%),
+    repeating-linear-gradient(242deg, transparent 0 7%, rgba(255, 226, 180, 0.06) 7% 9%, transparent 9% 15%);
+  mix-blend-mode: screen;
+}
+
+/* 05 — blueprint raster: a drawn ghost of the design */
+.srv-l-blueprint { left: 37%; width: 36%; bottom: 21%; opacity: 0.36; }
+.srv-l-blueprint img { mix-blend-mode: screen; }
+
+/* 06 — structural frame: phase two, under construction */
+.srv-l-structure { left: 38.5%; width: 24.5%; bottom: 22.5%; transform-origin: 50% 100%; }
+
+/* 05 — vector drawing (stroke-animated) */
+.srv-l-drawing { inset: 0; opacity: 0.55; }
+.srv-blueprint-svg { width: 100%; height: 100%; overflow: visible; }
+.srv-blueprint-svg .bp-draw {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.srv-blueprint-svg .bp-dash { stroke-dasharray: 1; }
+.srv-blueprint-svg .bp-accent .bp-draw { stroke: var(--srv-orange); stroke-width: 1.25; }
+.srv-blueprint-svg .bp-text {
+  font-family: var(--font-tech);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  fill: rgba(255, 255, 255, 0.85);
+  text-anchor: middle;
+}
+.srv-blueprint-svg .bp-text-end { text-anchor: end; }
+.srv-blueprint-svg .bp-text-accent { fill: var(--srv-orange); text-anchor: start; }
+
+/* 08 — survey station (lower left, under the copy column's edge) */
+.srv-l-survey { left: 27%; width: 16%; bottom: 2.5%; }
+.srv-survey-target {
+  position: absolute;
+  left: 41.5%;
+  top: 13.5%;
+  width: 2.2em;
+  height: 2.2em;
+  margin: -1.1em 0 0 -1.1em;
+  font-size: clamp(8px, 0.7vw, 12px);
+}
+.srv-survey-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--srv-orange);
+  border-radius: 50%;
+}
+.srv-survey-ring::before,
+.srv-survey-ring::after {
+  content: '';
+  position: absolute;
+  background: var(--srv-orange);
+}
+.srv-survey-ring::before { left: 50%; top: -35%; bottom: -35%; width: 1px; }
+.srv-survey-ring::after { top: 50%; left: -35%; right: -35%; height: 1px; }
+.srv-survey-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--srv-orange);
+  box-shadow: 0 0 8px rgba(232, 100, 27, 0.9);
+}
+
+/* 09 — SRV site signage */
+.srv-l-signage { left: 37.5%; width: 11%; bottom: 14%; }
+
+/* 10 — crew, lower centre */
+.srv-l-workers { left: 47%; width: 16.5%; bottom: -1%; }
+
+/* 11 — mixer, lower right */
+.srv-l-mixer { left: 65.5%; width: 15%; bottom: 3.5%; }
+
+/* 12 — excavator, foreground, bleeding off the right edge */
+.srv-l-excavator { left: 81%; width: 24%; bottom: -3%; }
+
+/* floating dust — two slow drifting speck fields */
+.srv-dust,
+.srv-dust::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 30%, rgba(255, 236, 205, 0.7), transparent),
+    radial-gradient(1px 1px at 28% 62%, rgba(255, 236, 205, 0.6), transparent),
+    radial-gradient(2px 2px at 46% 18%, rgba(255, 236, 205, 0.45), transparent),
+    radial-gradient(1px 1px at 63% 44%, rgba(255, 236, 205, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 78% 70%, rgba(255, 236, 205, 0.55), transparent),
+    radial-gradient(1px 1px at 91% 26%, rgba(255, 236, 205, 0.6), transparent);
+  background-size: 640px 420px;
+  opacity: 0.6;
+  animation: srvDust 38s linear infinite;
+}
+.srv-dust::after {
+  content: '';
+  background-size: 900px 560px;
+  opacity: 0.4;
+  animation-duration: 56s;
+  animation-direction: reverse;
+}
+@keyframes srvDust {
+  to { background-position: 640px -420px; }
+}
+
+/* ---------------------------------------------------------------------
+   Legibility: a quiet daylight wash behind the copy + ground shade
+   behind the timeline. Kept narrow so the scene stays the subject.
+   --------------------------------------------------------------------- */
+.srv-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.srv-scrim-copy {
+  background: linear-gradient(90deg, rgba(245, 241, 234, 0.9) 0%, rgba(245, 241, 234, 0.74) 24%, rgba(245, 241, 234, 0.2) 40%, transparent 52%);
+}
+.srv-scrim-ground {
+  background: linear-gradient(0deg, rgba(14, 18, 24, 0.8) 0%, rgba(14, 18, 24, 0.42) 9%, rgba(14, 18, 24, 0.1) 17%, transparent 24%);
+}
+
+/* ---------------------------------------------------------------------
+   Copy
+   --------------------------------------------------------------------- */
+.srv-content {
+  position: absolute;
+  left: var(--srv-gutter);
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(40rem, 44vw);
+  padding-block: clamp(6rem, 14vh, 9rem) clamp(6rem, 14vh, 8.5rem);
+}
+
+.srv-eyebrow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
+  font-family: var(--font-tech);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.srv-eyebrow-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--srv-charcoal);
+  font-weight: 500;
+}
+.srv-eyebrow-brand::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--srv-orange);
+}
+.srv-eyebrow-disciplines { color: #5d5b57; padding-left: 2.75rem; }
+
+.srv-title {
+  font-family: var(--font-ui);
+  font-size: clamp(2.75rem, 5vw, 6rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--srv-charcoal);
+}
+.srv-title-mask { display: block; padding-bottom: 0.04em; }
+.srv-title-line { display: inline-block; }
+.srv-title-mask:nth-child(3) { margin-top: 0.18em; }
+.srv-title-accent { color: var(--srv-orange); }
+
+.srv-lede {
+  max-width: 38ch;
+  margin-top: clamp(1.25rem, 3vh, 1.85rem);
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.6;
+  color: #3d3f42;
+}
+
+.srv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 3.5vh, 2.25rem);
+  pointer-events: auto;
+}
+
+.srv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 50px;
+  padding: 0 1.6rem;
+  border: 1px solid transparent;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.srv-btn svg { transition: transform 0.25s var(--ease-quiet); }
+.srv-btn:hover svg { transform: translateX(3px); }
+
+.srv-btn-primary { background: var(--srv-charcoal); color: var(--srv-white); }
+.srv-btn-primary:hover { background: var(--srv-orange); }
+
+.srv-btn-ghost { border-color: rgba(30, 33, 36, 0.4); background: transparent; color: var(--srv-charcoal); }
+.srv-btn-ghost:hover { border-color: var(--srv-charcoal); background: rgba(245, 241, 234, 0.7); }
+
+.srv-facts {
+  display: flex;
+  margin-top: clamp(1.75rem, 4vh, 2.75rem);
+  border-top: 1px solid rgba(30, 33, 36, 0.2);
+}
+.srv-fact {
+  padding: 0.85rem 1.5rem 0 0;
+  margin-right: 1.5rem;
+  border-right: 1px solid rgba(30, 33, 36, 0.14);
+}
+.srv-fact:last-child { border-right: 0; margin-right: 0; }
+.srv-fact dt {
+  font-family: var(--font-ui);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--srv-charcoal);
+}
+.srv-fact dd {
+  margin-top: 0.25rem;
+  font-family: var(--font-tech);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5d5b57;
+}
+
+/* ---------------------------------------------------------------------
+   Technical annotations (title-block style)
+   --------------------------------------------------------------------- */
+.srv-hud {
+  position: absolute;
+  right: var(--srv-gutter);
+  top: clamp(5.75rem, 12.5vh, 7.5rem);
+  z-index: 2;
+  font-family: var(--font-tech);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--srv-charcoal);
+  opacity: 0.66;
+}
+.srv-hud dl { display: flex; border-top: 1px solid rgba(30, 33, 36, 0.3); }
+.srv-hud-row {
+  padding: 0.5rem 1.1rem 0 0;
+  margin-right: 1.1rem;
+  border-right: 1px solid rgba(30, 33, 36, 0.18);
+}
+.srv-hud-row:last-child { margin-right: 0; padding-right: 0; border-right: 0; }
+.srv-hud dt { margin-bottom: 0.3rem; color: #55534f; }
+.srv-hud dd { line-height: 1.45; white-space: nowrap; color: var(--srv-charcoal); }
+.srv-hud-live {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: var(--srv-orange);
+  vertical-align: 1px;
+}
+
+/* ---------------------------------------------------------------------
+   Workflow timeline
+   --------------------------------------------------------------------- */
+.srv-timeline-wrap {
+  position: absolute;
+  left: var(--srv-gutter);
+  right: var(--srv-gutter);
+  bottom: clamp(1.1rem, 3vh, 2rem);
+  z-index: 2;
+}
+
+.srv-timeline {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid rgba(245, 241, 234, 0.35);
+}
+
+.srv-step {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-top: 0.85rem;
+  font-family: var(--font-tech);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.62);
+  transition: color 0.4s ease;
+}
+.srv-step-tick {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--srv-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-quiet);
+}
+.srv-step::before {
+  content: '';
+  position: absolute;
+  top: -3.5px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245, 241, 234, 0.6);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+.srv-step-num { color: rgba(245, 241, 234, 0.45); }
+.srv-step.is-done .srv-step-tick,
+.srv-step.is-active .srv-step-tick { transform: scaleX(1); }
+.srv-step.is-done::before { background: var(--srv-orange); }
+.srv-step.is-active { color: var(--srv-white); }
+.srv-step.is-active::before { background: var(--srv-orange); box-shadow: 0 0 0 4px rgba(232, 100, 27, 0.22); }
+.srv-step.is-active .srv-step-num { color: var(--srv-orange); }
+
+/* ---------------------------------------------------------------------
+   Tablet: lighter site, fewer foreground pieces
+   --------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+  .srv-stage { --stage-crop-right: 0.45; }
+  .srv-content { width: min(36rem, 52vw); }
+  .srv-l-signage,
+  .srv-hud { display: none; }
+  .srv-scrim-copy {
+    background: linear-gradient(90deg, rgba(245, 241, 234, 0.93) 0%, rgba(245, 241, 234, 0.8) 34%, rgba(245, 241, 234, 0.25) 56%, transparent 68%);
+  }
+}
+
+@media (max-width: 1023px) {
+  .srv-l-workers { display: none; }
+  /* numbers only; the active phase name drops beneath its number */
+  .srv-step { flex-direction: column; gap: 0.3rem; }
+  .srv-step-label { visibility: hidden; white-space: nowrap; }
+  .srv-step.is-active .srv-step-label { visibility: visible; }
+}
+
+/* ---------------------------------------------------------------------
+   Stacked composition (phones + portrait tablets): copy on top, then a
+   scene band with the building, the drawing, one construction piece
+   (structure) and one foreground piece (excavator).
+   --------------------------------------------------------------------- */
+@media (max-width: 767px), (orientation: portrait) and (max-width: 1100px) {
+  .srv-hero {
+    --band-h: 68vw;
+    --band-stage-w: 130vw;
+    --band-stage-right: -6vw;
+    height: auto;
+    min-height: 100svh;
+  }
+  .srv-hero-frame {
+    position: relative;
+    inset: auto;
+    min-height: 100svh;
+    container-type: inline-size;
+    padding-bottom: var(--band-h);
+  }
+
+  .srv-content {
+    position: relative;
+    left: auto;
+    width: auto;
+    max-width: 40rem;
+    padding: 7.5rem var(--srv-gutter) 2.5rem;
+    justify-content: flex-start;
+  }
+
+  /* the scene becomes a clipped band under the copy */
+  .srv-env {
+    top: auto;
+    bottom: 0;
+    height: var(--band-h);
+    overflow: hidden;
+  }
+  .srv-stage { width: var(--band-stage-w); right: var(--band-stage-right); }
+  .srv-env::before {
+    /* melt the band's sky into the page ground above it */
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 40%;
+    z-index: 1;
+    background: linear-gradient(180deg, #E9E2D6 10%, rgba(233, 226, 214, 0));
+  }
+  .srv-l-crane,
+  .srv-l-survey,
+  .srv-l-signage,
+  .srv-l-workers,
+  .srv-l-mixer,
+  .srv-hud { display: none; }
+  .srv-l-excavator { left: 78%; width: 26%; bottom: -4%; }
+
+  .srv-scrim-copy { display: none; }
+  .srv-scrim-ground { background: linear-gradient(0deg, rgba(14, 18, 24, 0.7) 0%, rgba(14, 18, 24, 0.2) 10%, transparent 20%); }
+  .srv-timeline-wrap { bottom: 1.25rem; }
+}
+
+@media (max-width: 767px) {
+  .srv-hero {
+    --band-h: 88vw;
+    --band-stage-w: 175vw;
+    --band-stage-right: 7.5vw;
+  }
+  .srv-content { padding-top: 6.5rem; padding-bottom: 1.5rem; }
+  .srv-title { font-size: clamp(2.4rem, 11.5vw, 3.5rem); }
+  .srv-lede { max-width: none; }
+  .srv-actions > * { flex: 1 1 100%; }
+  .srv-facts { flex-wrap: wrap; }
+  .srv-fact { padding-right: 1rem; margin-right: 1rem; }
+  .srv-fact:last-child { flex-basis: 100%; border-right: 0; padding-bottom: 0.25rem; }
+  .srv-eyebrow-disciplines { padding-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .srv-dust, .srv-dust::after { animation: none; }
+}

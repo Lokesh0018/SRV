@@ -1,8 +1,8 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Scene3D from '../components/3d/Scene3D';
-import HeroOverlay from '../components/hero/HeroOverlay';
+import SRVHero from '../components/hero/SRVHero';
+import IdeaSection from '../components/sections/IdeaSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import AboutSection from '../components/sections/AboutSection';
 import ProjectsSection from '../components/sections/ProjectsSection';
@@ -22,13 +22,8 @@ const Home: React.FC = () => {
 
   return (
     <main ref={mainRef}>
-      {/* 3D Canvas Background */}
-      <div className="canvas-container">
-        <Scene3D />
-      </div>
-
-      {/* HTML Overlays */}
-      <HeroOverlay />
+      <SRVHero />
+      <IdeaSection />
       <AboutSection />
       <ServicesSection />
       <ProjectsSection />
