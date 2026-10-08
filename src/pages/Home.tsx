@@ -3,9 +3,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SRVHero from '../components/hero/SRVHero';
 import IdeaSection from '../components/sections/IdeaSection';
-import ServicesSection from '../components/sections/ServicesSection';
 import AboutSection from '../components/sections/AboutSection';
-import ProjectsSection from '../components/sections/ProjectsSection';
+import ServicesSection from '../components/sections/ServicesSection';
 import ContactSection from '../components/sections/ContactSection';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,10 +22,9 @@ const Home: React.FC = () => {
   return (
     <main ref={mainRef}>
       <SRVHero />
-      <IdeaSection />
       <AboutSection />
       <ServicesSection />
-      <ProjectsSection />
+      <IdeaSection />
       <ContactSection />
     </main>
   );

@@ -45,21 +45,9 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="footer-col">
-            <h4 className="footer-heading">Services</h4>
-            <ul className="footer-links">
-              <li><a href="#services">Architecture</a></li>
-              <li><a href="#services">Structural Engineering</a></li>
-              <li><a href="#services">Interior Design</a></li>
-              <li><a href="#services">Landscape</a></li>
-              <li><a href="#services">Project Management</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
             <h4 className="footer-heading">Explore</h4>
             <ul className="footer-links">
               <li><a href="#about">About Us</a></li>
-              <li><a href="#projects">Projects</a></li>
               <li><a href="#idea">Our Process</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>

@@ -137,7 +137,7 @@ const HeroOverlay: React.FC = () => {
             </ul>
 
             <div className="hp-actions hp-reveal">
-              <button type="button" className="hp-btn hp-btn-solid" onClick={() => scrollTo('projects')}>
+              <button type="button" className="hp-btn hp-btn-solid" onClick={() => scrollTo('about')}>
                 Explore our work
                 <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
               </button>

@@ -26,7 +26,7 @@ const HeroContent: React.FC = () => (
     </p>
 
     <div className="srv-actions">
-      <button type="button" className="srv-btn srv-btn-primary" onClick={() => scrollToId('projects')}>
+      <button type="button" className="srv-btn srv-btn-primary" onClick={() => scrollToId('about')}>
         EXPLORE OUR WORK
         <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
       </button>

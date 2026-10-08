@@ -56,7 +56,7 @@ const IdeaSection: React.FC = () => {
         <header className="idea-head">
           <div>
             <p className="idea-index">
-              <span className="idea-index-num">01</span>
+              <span className="idea-index-num">02</span>
               <span className="idea-index-sep" aria-hidden="true" />
               Approach
             </p>
@@ -73,7 +73,7 @@ const IdeaSection: React.FC = () => {
               Every project begins with understanding the land, the structure, and the people who will
               use the space.
             </p>
-            <a className="idea-link" href="#services">
+            <a className="idea-link" href="#contact">
               How we work
               <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
             </a>
