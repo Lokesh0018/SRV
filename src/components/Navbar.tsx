@@ -20,7 +20,9 @@ const Navbar: React.FC = () => {
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
       <div className="container nav-content">
-        <Link to="/" className="logo">SRV</Link>
+        <Link to="/" className="logo">
+          <img src="/SRV_Logo.jpg" alt="SRV Associates Logo" style={{ height: '40px', objectFit: 'contain' }} />
+        </Link>
         <ul className="nav-links">
           <li><Link to="/#about" className="nav-link">About</Link></li>
           <li><Link to="/#services" className="nav-link">Services</Link></li>
