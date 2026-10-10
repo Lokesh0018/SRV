@@ -1,0 +1,318 @@
+/* Decorative footer landscape — sits behind .footer-grid (z 10) and never
+   takes pointer events. Full-width layers stay under ~46px so they clear the
+   footer text; taller props live in .fa-anchors slots that mirror the grid. */
+
+.footer-animation-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(100px, 15vw, 140px);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-animation-wrapper * {
+  pointer-events: none;
+}
+
+/* ---------- anchor grids (mirror .footer-grid columns) ---------- */
+
+.fa-anchors {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  grid-template-rows: 100%;
+  column-gap: 3rem;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding-inline: var(--hp-gutter);
+}
+
+.fa-slot {
+  position: relative;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.fa-z-sky { z-index: 1; }
+.fa-z-mid { z-index: 4; }
+.fa-z-site { z-index: 7; }
+
+/* Desktop placement */
+.fa-slot-sun { grid-column: 2; }
+.fa-slot-crane,
+.fa-slot-excavator,
+.fa-slot-gutter-l { grid-column: 1; }
+.fa-slot-gutter-r { grid-column: 3; }
+
+/* ---------- sun ---------- */
+
+.fa-sun {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  border-radius: 50%;
+  background: #f7953f;
+  box-shadow: 0 0 22px 2px rgba(247, 149, 63, 0.28);
+}
+
+/* ---------- clouds ---------- */
+
+.fa-cloud {
+  position: absolute;
+  display: block;
+  height: auto;
+  animation: fa-cloud-drift 14s ease-in-out infinite alternate;
+}
+
+.fa-cloud-sun {
+  bottom: 88px;
+  left: calc(50% + 40px);
+}
+
+.fa-slot-gutter-l .fa-cloud-gutter {
+  bottom: 104px;
+  right: calc(100% + 120px);
+  animation-duration: 18s;
+}
+
+.fa-slot-gutter-r .fa-cloud-gutter {
+  bottom: 100px;
+  left: calc(100% + 110px);
+  animation-duration: 16s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes fa-cloud-drift {
+  from { transform: translateX(-8px); }
+  to { transform: translateX(8px); }
+}
+
+/* ---------- background layers ---------- */
+
+.fa-wide {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: block;
+}
+
+.fa-mountains { height: 46px; z-index: 2; }
+.fa-skyline { height: 40px; z-index: 3; bottom: 6px; }
+
+/* ---------- middle-ground props ---------- */
+
+.fa-turbine,
+.fa-crane {
+  display: block;
+  width: auto;
+}
+
+.fa-prop-row {
+  position: absolute;
+  bottom: 6px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.fa-slot-gutter-l .fa-prop-row { right: calc(100% + 28px); }
+.fa-slot-gutter-r .fa-prop-row { left: calc(100% + 28px); }
+
+.fa-crane {
+  position: absolute;
+  bottom: 6px;
+  right: 128px;
+  height: 106px;
+}
+
+/* ---------- road + vehicle lanes ---------- */
+
+.fa-road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  z-index: 5;
+  border-top: 1px solid #e5e7eb;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0 16px, transparent 16px 34px) 0 4px / 100% 1.5px no-repeat,
+    #f1f3f5;
+}
+
+.fa-lane {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.fa-lane-svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  animation: fa-lane-left linear infinite;
+  will-change: transform;
+}
+
+/* Far lane: smaller and slightly faded so it reads as depth, not overlap */
+.fa-lane-back {
+  z-index: 6;
+  bottom: 7px;
+  height: 32px;
+  opacity: 0.82;
+}
+
+.fa-lane-front {
+  z-index: 8;
+  bottom: 0;
+  height: 46px;
+}
+
+.fa-lane-front .fa-lane-svg {
+  animation-name: fa-lane-right;
+}
+
+/* --fa-shift is exactly one tile, so the loop is seamless */
+@keyframes fa-lane-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--fa-shift)); }
+}
+
+@keyframes fa-lane-right {
+  from { transform: translateX(var(--fa-shift)); }
+  to { transform: translateX(0); }
+}
+
+.fa-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fa-spin linear infinite;
+}
+
+@keyframes fa-spin {
+  to { transform: rotate(360deg); }
+}
+
+.fa-drum {
+  animation: fa-drum-turn 1.4s linear infinite;
+}
+
+@keyframes fa-drum-turn {
+  from { transform: translateX(0); }
+  to { transform: translateX(12px); }
+}
+
+.fa-dump-bed {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: fa-bed-tilt 7s ease-in-out infinite;
+}
+
+@keyframes fa-bed-tilt {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  75%, 85% { transform: rotate(-3deg); }
+}
+
+/* ---------- excavator ---------- */
+
+.fa-excavator {
+  position: absolute;
+  bottom: 3px;
+  right: 0;
+  display: block;
+  width: auto;
+  height: 76px;
+}
+
+/* ---------- responsive ---------- */
+
+/* Outer gutters are too narrow for props below this width */
+@media (max-width: 1359px) {
+  .fa-slot-gutter-l,
+  .fa-slot-gutter-r { display: none; }
+}
+
+/* Between desktop and tablet the crane would crowd the social icons */
+@media (max-width: 1199px) {
+  .fa-slot-crane { display: none; }
+}
+
+/* Tablet: footer-grid becomes two columns with the brand on its own row.
+   The open space is under the (short) Explore column, i.e. column 1. */
+@media (max-width: 1024px) {
+  .fa-anchors { grid-template-columns: 1fr 1fr; }
+
+  .fa-slot-sun,
+  .fa-slot-crane,
+  .fa-slot-excavator { grid-column: 1; }
+
+  .fa-sun {
+    left: auto;
+    right: 0;
+    margin-left: 0;
+    bottom: 52px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .fa-cloud-sun { display: none; }
+
+  .fa-excavator {
+    right: auto;
+    left: 0;
+  }
+
+  .fa-crane {
+    right: auto;
+    left: 150px;
+  }
+}
+
+@media (min-width: 860px) and (max-width: 1024px) {
+  .fa-slot-crane { display: block; }
+}
+
+/* Mobile: single column, Contact sits at the bottom. Keep only the low
+   layers, a small sun in the free space right of the address, and the lanes. */
+@media (max-width: 640px) {
+  .fa-anchors { grid-template-columns: 1fr; }
+
+  .fa-slot-excavator { display: none; }
+
+  .fa-sun {
+    right: 4px;
+    bottom: 54px;
+    width: 34px;
+    height: 34px;
+    box-shadow: 0 0 14px 1px rgba(247, 149, 63, 0.25);
+  }
+
+  .fa-mountains { height: 34px; }
+  .fa-skyline { height: 28px; }
+  .fa-road { height: 8px; }
+  .fa-lane-back { bottom: 5px; height: 26px; }
+  .fa-lane-front { height: 36px; }
+}
+
+/* ---------- motion ---------- */
+
+.footer-animation-wrapper[data-paused] .fa-anim {
+  animation-play-state: paused;
+}
+
+/* Static fallback: the convoy rests in place; SMIL animations are not rendered. */
+@media (prefers-reduced-motion: reduce) {
+  .fa-anim {
+    animation: none !important;
+  }
+}
