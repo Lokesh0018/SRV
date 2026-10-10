@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface ParallaxIconsProps {
   icons: { src: string; className: string }[];
-  containerRef: React.RefObject<HTMLElement>;
+  containerRef: any;
 }
 
 const ParallaxIcons: React.FC<ParallaxIconsProps> = ({ icons, containerRef }) => {

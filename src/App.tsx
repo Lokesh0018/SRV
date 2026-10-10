@@ -14,7 +14,12 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // A small timeout ensures that the DOM has been updated and any Suspense fallbacks have resolved
+    // before we force the scroll position to the top.
+    const t = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, 10);
+    return () => clearTimeout(t);
   }, [pathname]);
 
   return null;
@@ -25,7 +30,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <Navbar />
-      <Suspense fallback={<div className="loading-screen">Loading Experience...</div>}>
+      <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

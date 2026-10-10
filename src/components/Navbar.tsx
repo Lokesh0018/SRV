@@ -36,7 +36,13 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`site-nav${scrolled ? ' scrolled' : ''}${open ? ' is-open' : ''}`} aria-label="Primary">
       <div className="nav-content">
-        <Link to="/" className="logo" onClick={close}>
+        <Link to="/" className="logo" onClick={(e) => {
+          close();
+          if (pathname === '/') {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}>
           <img className="logo-dark" src="/SRV_Logo.png" alt="SRV Associates — home" width={822} height={720} />
           {/* light lockup, shown while the nav floats over the hero footage */}
           <img className="logo-light" src="/SRV_Logo_light.png" alt="" aria-hidden="true" width={822} height={720} />
@@ -46,16 +52,28 @@ const Navbar: React.FC = () => {
           <ul className="nav-links" id="nav-links">
             {LINKS.map((l) => {
               const isActive = pathname === l.href;
+              const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+                close();
+                if (isActive) {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              };
               return (
                 <li key={l.label}>
-                  <Link to={l.href} className={`nav-link${isActive ? ' is-active' : ''}`} onClick={close}>
+                  <Link to={l.href} className={`nav-link${isActive ? ' is-active' : ''}`} onClick={handleClick}>
                     {l.label}
                   </Link>
                 </li>
               );
             })}
             <li className="nav-links-cta">
-              <Link to="/contact" className="nav-cta" onClick={close}>
+              <Link to="/contact" className="nav-cta" onClick={() => {
+                close();
+                if (pathname === '/contact') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}>
                 START A PROJECT
                 <ArrowUpRight size={15} strokeWidth={1.75} aria-hidden="true" />
               </Link>

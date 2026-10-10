@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
-import { SERVICES, type Service } from '../data/services';
+import { SERVICES } from '../data/services';
 import ParallaxIcons from '../components/ParallaxIcons';
 import iconTape from '../assets/construction-measuring-tape.webp';
 import iconHelmet from '../assets/construction-helmet.webp';

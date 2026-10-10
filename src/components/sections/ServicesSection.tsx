@@ -98,7 +98,9 @@ const ServicesSection: React.FC = () => {
                   <ArrowRight size={24} strokeWidth={1} className="service-item-icon" />
                 </div>
                 <div className="service-item-desc-wrapper">
-                  <p className="service-item-desc">{s.desc}</p>
+                  <div className="service-item-desc-inner">
+                    <p className="service-item-desc">{s.desc}</p>
+                  </div>
                 </div>
               </div>
             </article>
