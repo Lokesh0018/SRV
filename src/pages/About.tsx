@@ -30,9 +30,9 @@ import imgConstruction from '../assets/service-construction.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Where the CTAs point. Switch to '/contact' and '/services' once those pages exist. */
-const CONTACT_HREF = '/#contact';
-const SERVICES_HREF = '/#services';
+/* Where the CTAs point. */
+const CONTACT_HREF = '/contact';
+const SERVICES_HREF = '/services';
 
 import imgFounder from '../assets/srv-founder.webp';
 
