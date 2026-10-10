@@ -4,30 +4,6 @@ import '../styles/Footer.css';
 const Footer: React.FC = () => {
   return (
     <footer className="footer">
-      <div className="footer-cta-wrap">
-        <div className="container footer-cta-content">
-          <h2 className="footer-cta-title">
-            Let's build your <span className="text-orange">vision</span>.
-          </h2>
-          <a href="#contact" className="footer-cta-btn">
-            Start a project
-            <svg
-              className="btn-icon"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 12h14M12 5l7 7-7 7"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
-
       <div className="footer-main">
         <div className="container footer-grid">
           <div className="footer-col brand-col">

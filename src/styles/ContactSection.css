@@ -1,46 +1,348 @@
 .contact-section {
   background-color: var(--color-ink-strong);
   color: var(--color-surface);
-  padding: 10rem 0;
+  padding: clamp(5rem, 12vh, 9rem) 0;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* ---------- background ---------- */
+
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Full-bleed site photo that fades in from the right — no hard seam */
+.contact-bg-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/hero-poster.webp');
+  background-size: cover;
+  background-position: center right;
+  opacity: 0.075;
+  filter: grayscale(1) contrast(1.1);
+  mask-image: linear-gradient(to left, #000 0%, rgba(0, 0, 0, 0.6) 40%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to left, #000 0%, rgba(0, 0, 0, 0.6) 40%, transparent 85%);
+}
+
+/* Faint blueprint grid with a warm glow behind the heading */
+.contact-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 80% at 20% 40%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 20% 40%, #000 0%, transparent 75%);
+}
+
+.contact-bg::after {
+  content: '';
+  position: absolute;
+  width: 36rem;
+  height: 36rem;
+  left: -12rem;
+  top: -10rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(243, 106, 22, 0.12) 0%, transparent 65%);
+}
+
+/* ---------- layout ---------- */
+
 .contact-container {
-  text-align: center;
-  max-width: 800px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  max-width: 75rem;
   margin: 0 auto;
+  padding-inline: var(--hp-gutter);
+}
+
+@media (min-width: 992px) {
+  .contact-container {
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(4rem, 7vw, 7rem);
+    align-items: center;
+  }
+}
+
+/* ---------- left column ---------- */
+
+.contact-left {
+  max-width: 34rem;
+}
+
+.contact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+}
+
+.contact-eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 2px;
+  background-color: var(--color-accent);
 }
 
 .contact-heading {
-  margin-bottom: 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.75rem;
+  color: var(--color-surface);
+}
+
+.contact-heading em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-accent);
 }
 
 .contact-text {
-  color: var(--color-ink-muted);
-  font-size: 1.2rem;
-  margin-bottom: 4rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
+  line-height: 1.65;
+  margin-bottom: 2.75rem;
+  max-width: 28rem;
 }
 
-.contact-actions {
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 52px;
+  padding: 0.875rem 1.25rem 0.875rem 1.75rem;
+  background-color: var(--color-accent);
+  color: var(--color-ink-strong);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-cta svg {
+  flex-shrink: 0;
+  transition: transform 0.2s var(--ease-quiet);
+}
+
+.contact-cta:hover {
+  background-color: #ff7d2e;
+  box-shadow: 0 12px 28px -10px rgba(243, 106, 22, 0.55);
+}
+
+.contact-cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- right column: details card ---------- */
+
+.contact-card {
   display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.contact-row {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.125rem;
+  padding: 1.375rem 1.25rem;
+  border-radius: 0.875rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-row + .contact-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.contact-icon {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  gap: 2rem;
-  margin-bottom: 4rem;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 0.75rem;
+  background-color: rgba(243, 106, 22, 0.12);
+  color: var(--color-accent);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.contact-grid {
+.contact-body {
   display: flex;
-  justify-content: space-between;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 4rem;
-  text-align: left;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+  flex: 1;
 }
 
 .contact-label {
-  color: var(--color-accent);
-  margin-bottom: 1rem;
-  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin: 0;
 }
 
-.contact-info {
-  color: #aaa;
+.contact-value {
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 1.0625rem;
+  font-style: normal;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 0;
+}
+
+.contact-value-break {
+  overflow-wrap: anywhere;
+}
+
+.contact-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: fit-content;
+  min-height: 32px;
+  margin-top: 0.25rem;
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(243, 106, 22, 0.35);
+  transition: border-color 0.2s ease;
+}
+
+.contact-inline-link:hover {
+  border-color: var(--color-accent);
+}
+
+/* Whole-row links (phone, email) */
+.contact-row-link {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.contact-row-link .contact-value {
+  transition: color 0.2s ease;
+}
+
+.contact-row-arrow {
+  flex-shrink: 0;
+  align-self: center;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.2s ease, transform 0.2s var(--ease-quiet);
+}
+
+.contact-row-link:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.contact-row-link:hover .contact-icon {
+  background-color: var(--color-accent);
+  color: var(--color-ink-strong);
+}
+
+.contact-row-link:hover .contact-value {
+  color: var(--color-accent);
+}
+
+.contact-row-link:hover .contact-row-arrow {
+  color: var(--color-accent);
+  transform: translate(2px, -2px);
+}
+
+/* Hide the hover line between a hovered row and its neighbours */
+.contact-row-link:hover::before,
+.contact-row-link:hover + .contact-row::before {
+  opacity: 0;
+}
+
+/* ---------- focus ---------- */
+
+.contact-cta:focus-visible,
+.contact-row-link:focus-visible,
+.contact-inline-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 480px) {
+  .contact-cta {
+    width: 100%;
+    justify-content: center;
+    padding-inline: 1.25rem;
+  }
+
+  .contact-card {
+    padding: 0.25rem;
+  }
+
+  .contact-row {
+    gap: 0.875rem;
+    padding: 1.125rem 0.875rem;
+  }
+
+  .contact-row + .contact-row::before {
+    left: 0.875rem;
+    right: 0.875rem;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-value {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-section *,
+  .contact-section *::before {
+    transition: none !important;
+  }
 }
