@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 // Lazy load pages for performance
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
         </Routes>
       </Suspense>
       <Footer />

@@ -1,0 +1,190 @@
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { SERVICES, type Service } from '../data/services';
+import '../styles/ServicesPage.css';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const CONTACT_HREF = '/contact';
+
+const Services: React.FC = () => {
+  const root = useRef<HTMLElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  
+  const activeService = SERVICES[activeIndex];
+
+  React.useEffect(() => {
+    if (isHovering) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => {
+        let next;
+        do {
+          next = Math.floor(Math.random() * SERVICES.length);
+        } while (next === prev);
+        return next;
+      });
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isHovering]);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    const prevTitle = document.title;
+    document.title = 'Services | SRV Associates';
+
+    const el = root.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+          .from('.sp-hero-head > *, .sp-hero-copy > *', { y: 24, opacity: 0, duration: 0.8, stagger: 0.07 })
+          // the 7 builds cell by cell: across the bar, then down the stem
+          .from('.sp-cell-item', { opacity: 0, y: 14, duration: 0.5, stagger: 0.08 }, 0.35);
+
+        // Fade the card, slide only its contents: a transform on the card itself would
+        // skew the browser's anchor-scroll target when a hero tile is clicked.
+        const cards = gsap.utils.toArray<HTMLElement>('.sp-card');
+        gsap.set(cards, { opacity: 0 });
+        gsap.set('.sp-card > *', { y: 32 });
+        ScrollTrigger.batch(cards, {
+          start: 'top 88%',
+          once: true,
+          onEnter: (batch) => {
+            gsap.to(batch, { opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out' });
+            batch.forEach((card, i) =>
+              gsap.to(card.children, { y: 0, duration: 0.9, stagger: 0.08, delay: i * 0.1, ease: 'power3.out' }),
+            );
+          },
+        });
+        gsap.from('.sp-cta-card', {
+          y: 30, opacity: 0, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: '.sp-cta', start: 'top 85%', once: true },
+        });
+      });
+    }, el);
+
+    const refresh = setTimeout(() => ScrollTrigger.refresh(), 400);
+    return () => {
+      clearTimeout(refresh);
+      ctx.revert();
+      document.title = prevTitle;
+    };
+  }, []);
+
+  return (
+    <main ref={root} className="services-page">
+      {/* ---------- hero: all seven disciplines at a glance ---------- */}
+      <section className="sp-hero" aria-labelledby="sp-title">
+        <div className="sp-hero-grid" aria-hidden="true" />
+        <div className="sp-container sp-hero-inner">
+          <div className="sp-hero-head">
+            <p className="sp-eyebrow">Our Services</p>
+            <h1 id="sp-title" className="sp-title">
+              Seven disciplines. <em>One integrated practice.</em>
+            </h1>
+          </div>
+
+          <div className="sp-hero-copy">
+            <p className="sp-lede" style={{ minHeight: '5.5rem' }}>
+              <span key={activeService.id} className="sp-lede-animate" style={{ display: 'block' }}>
+                {activeService.desc}
+              </span>
+            </p>
+            <div className="sp-hero-actions">
+              <Link to={CONTACT_HREF} className="sp-btn">
+                Get Free Consultation <ArrowUpRight size={18} strokeWidth={2.25} aria-hidden="true" />
+              </Link>
+              <a href={`#${SERVICES[0].slug}`} className="sp-btn-ghost">
+                View all services <ArrowDown size={16} strokeWidth={2.25} aria-hidden="true" />
+              </a>
+            </div>
+            <dl className="sp-facts">
+              <div><dt>Disciplines</dt><dd>07</dd></div>
+              <div><dt>Scope</dt><dd>Concept → Completion</dd></div>
+              <div><dt>Based in</dt><dd>Visakhapatnam</dd></div>
+            </dl>
+          </div>
+
+          {/* One solid "7": 01–03 are cells of the bar, 04–07 slices of the slanted stem */}
+          <div className="sp-seven" role="navigation" aria-label="Jump to a service">
+            <ol className="sp-cells">
+              {SERVICES.map((s, idx) => {
+                const Icon = s.icon;
+                return (
+                  <li 
+                    key={s.id} 
+                    className="sp-cell-item"
+                    onMouseEnter={() => { setActiveIndex(idx); setIsHovering(true); }}
+                    onMouseLeave={() => setIsHovering(false)}
+                    onFocus={() => { setActiveIndex(idx); setIsHovering(true); }}
+                    onBlur={() => setIsHovering(false)}
+                  >
+                    <a href={`#${s.slug}`} className={`sp-cell ${idx === activeIndex ? 'is-active' : ''}`}>
+                      <span className="sp-cell-num">{s.id}</span>
+                      <span className="sp-cell-main">
+                        <span className="sp-cell-icon" aria-hidden="true"><Icon size={20} strokeWidth={1.75} /></span>
+                        <span className="sp-cell-label">{s.short}</span>
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- individual service cards ---------- */}
+      <section className="sp-list" aria-label="Service details">
+        <div className="sp-container">
+          {SERVICES.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <article key={s.id} id={s.slug} className={`sp-card${i % 2 ? ' is-flipped' : ''}`} aria-labelledby={`${s.slug}-title`}>
+                <div className="sp-card-media">
+                  <img src={s.image} alt="" loading={i < 2 ? 'eager' : 'lazy'} />
+                  <span className="sp-card-badge">{s.id} / 07</span>
+                </div>
+                <div className="sp-card-body">
+                  <span className="sp-card-icon" aria-hidden="true"><Icon size={24} strokeWidth={1.75} /></span>
+                  <h2 id={`${s.slug}-title`} className="sp-card-title">{s.title}</h2>
+                  <p className="sp-card-desc">{s.desc}</p>
+                  {s.detail && <p className="sp-card-detail">{s.detail}</p>}
+                  <ul className="sp-card-scope" aria-label={`${s.title} scope`}>
+                    {s.scope.map((item) => (
+                      <li key={item}><Check size={16} strokeWidth={2.5} aria-hidden="true" />{item}</li>
+                    ))}
+                  </ul>
+                  <Link to={`${CONTACT_HREF}?service=${s.slug}`} className="sp-card-link">
+                    Discuss your project <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ---------- CTA ---------- */}
+      <section className="sp-cta" aria-labelledby="sp-cta-title">
+        <div className="sp-container">
+          <div className="sp-cta-card">
+            <div>
+              <h2 id="sp-cta-title" className="sp-cta-title">Ready to Start Your Next Project?</h2>
+              <p className="sp-cta-text">Let's transform your vision into reality with expert engineering and design solutions</p>
+            </div>
+            <Link to={CONTACT_HREF} className="sp-btn">
+              Get Free Consultation <ArrowUpRight size={18} strokeWidth={2.25} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Services;

@@ -1,16 +1,9 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Building2, Paintbrush, Trees, Map, Hammer, PencilRuler, Compass } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { SERVICES } from '../../data/services';
 import '../../styles/ServicesSection.css';
-
-import imgConstruction from '../../assets/service-construction.webp';
-import imgInterior from '../../assets/service-interior-design.webp';
-import imgLandscape from '../../assets/service-landscape.webp';
-import imgSurvey from '../../assets/service-survey works.webp';
-import imgStructural from '../../assets/service-structural design.webp';
-import imgArchitectural from '../../assets/service-architectural planning.webp';
-import imgVastu from '../../assets/service-vastu.webp';
 
 import imgVest from '../../assets/construction-vest.webp';
 import imgGlasses from '../../assets/construction-glasses.webp';
@@ -21,58 +14,6 @@ import imgHelmet from '../../assets/construction-helmet.webp';
 import imgMegaphone from '../../assets/construction-megaphone.webp';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const SERVICES = [
-  {
-    id: '01',
-    title: 'Constructions',
-    desc: 'End-to-end building and construction services focusing on uncompromised structural integrity and superior quality.',
-    icon: Building2,
-    image: imgConstruction
-  },
-  {
-    id: '02',
-    title: 'Interior Designs & 3D Walkthrough',
-    desc: 'Immersive and bespoke interior concepts, visualized through highly detailed 3D walkthroughs for precise planning.',
-    icon: Paintbrush,
-    image: imgInterior
-  },
-  {
-    id: '03',
-    title: 'Landscape & Elevations',
-    desc: 'Striking exterior elevations and lush landscape planning designed to harmonize with the built environment.',
-    icon: Trees,
-    image: imgLandscape
-  },
-  {
-    id: '04',
-    title: 'Survey Works',
-    desc: 'Accurate site surveying and topographical mappings to establish perfect foundations for any development.',
-    icon: Map,
-    image: imgSurvey
-  },
-  {
-    id: '05',
-    title: 'Structural Designs',
-    desc: 'Advanced engineering and structural framing that ensure durability, safety, and architectural brilliance.',
-    icon: Hammer,
-    image: imgStructural
-  },
-  {
-    id: '06',
-    title: 'Architectural Planning',
-    desc: 'Strategic layout and blueprint design optimizing spatial flow, utility, and modern aesthetics.',
-    icon: PencilRuler,
-    image: imgArchitectural
-  },
-  {
-    id: '07',
-    title: 'Vastu Consultant & Architecture',
-    desc: 'Harmonious architectural design rooted in traditional Vastu principles for balanced, positive living spaces.',
-    icon: Compass,
-    image: imgVastu
-  }
-];
 
 const ServicesSection: React.FC = () => {
   const root = useRef<HTMLElement>(null);
