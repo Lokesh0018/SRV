@@ -34,6 +34,15 @@ const Home: React.FC = () => {
     };
   }, []);
 
+  React.useEffect(() => {
+    // Refresh ScrollTrigger after fonts, images, and initial layout shifts have settled.
+    // This fixes issues where sections (like Services) remain empty because their trigger points were miscalculated.
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <main ref={mainRef}>
       <SRVHero />
