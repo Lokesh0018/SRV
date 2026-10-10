@@ -4,6 +4,7 @@
 .contact-page {
   background-color: var(--color-canvas);
   color: var(--color-ink);
+  position: relative;
 }
 
 .cp-container {

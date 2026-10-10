@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import '../styles/AboutPage.css';
 import AboutHero from '../components/about/AboutHero';
+import ParallaxIcons from '../components/ParallaxIcons';
 
 import imgStructural from '../assets/service-structural design.webp';
 import imgArchitectural from '../assets/service-architectural planning.webp';
@@ -27,6 +28,13 @@ import imgInterior from '../assets/service-interior-design.webp';
 import imgVastu from '../assets/service-vastu.webp';
 import imgSurvey from '../assets/service-survey works.webp';
 import imgConstruction from '../assets/service-construction.webp';
+
+import iconHelmet from '../assets/construction-helmet.webp';
+import iconTape from '../assets/construction-measuring-tape.webp';
+import iconCones from '../assets/construction-cones.webp';
+import iconVest from '../assets/construction-vest.webp';
+import iconGlasses from '../assets/construction-glasses.webp';
+import iconMegaphone from '../assets/construction-megaphone.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,6 +87,8 @@ const SectionIndex: React.FC<{ num: string; label: string }> = ({ num, label }) 
 
 const About: React.FC = () => {
   const root = useRef<HTMLElement>(null);
+  const expertiseRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -110,6 +120,15 @@ const About: React.FC = () => {
 
   return (
     <main ref={root} className="about-page">
+      <ParallaxIcons
+        containerRef={root}
+        icons={[
+          { src: iconHelmet, className: 'px-icon-about-1' },
+          { src: iconTape, className: 'px-icon-about-2' },
+          { src: iconCones, className: 'px-icon-about-3' },
+          { src: iconVest, className: 'px-icon-about-4' },
+        ]}
+      />
       <AboutHero />
 
       {/* ---------- founder ---------- */}
@@ -195,7 +214,14 @@ const About: React.FC = () => {
       </section>
 
       {/* ---------- services ---------- */}
-      <section id="expertise" className="ap-services" aria-labelledby="ap-services-title">
+      <section id="expertise" ref={expertiseRef} className="ap-services" aria-labelledby="ap-services-title">
+        <ParallaxIcons
+          containerRef={expertiseRef}
+          icons={[
+            { src: iconGlasses, className: 'px-icon-expertise-1' },
+            { src: iconMegaphone, className: 'px-icon-expertise-2' },
+          ]}
+        />
         <div className="ap-container">
           <div className="ap-section-head">
             <SectionIndex num="02" label="What we do" />
@@ -269,7 +295,14 @@ const About: React.FC = () => {
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section className="ap-cta" aria-labelledby="ap-cta-title">
+      <section ref={ctaRef} className="ap-cta" aria-labelledby="ap-cta-title">
+        <ParallaxIcons
+          containerRef={ctaRef}
+          icons={[
+            { src: iconHelmet, className: 'px-icon-cta-1' },
+            { src: iconTape, className: 'px-icon-cta-2' },
+          ]}
+        />
         <div className="ap-container">
           <div className="ap-cta-card ap-reveal">
             <div>

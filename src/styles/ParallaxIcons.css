@@ -1,0 +1,38 @@
+.parallax-icons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.px-icon {
+  position: absolute;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(120%);
+}
+
+/* About Page specific layout */
+.px-icon-about-1 { top: 5%; left: -5%; width: 350px; transform: rotate(15deg); }
+.px-icon-about-2 { top: 25%; right: -5%; width: 280px; transform: rotate(-25deg); }
+.px-icon-about-3 { top: 50%; left: 2%; width: 320px; transform: rotate(10deg); }
+.px-icon-about-4 { top: 75%; right: 5%; width: 400px; transform: rotate(-15deg); }
+
+/* Contact Page specific layout */
+.px-icon-contact-1 { top: 10%; right: -5%; width: 350px; transform: rotate(-10deg); }
+.px-icon-contact-2 { top: 50%; left: -10%; width: 450px; transform: rotate(20deg); }
+.px-icon-contact-3 { top: 80%; right: 10%; width: 300px; transform: rotate(-5deg); }
+
+/* About Page Expertise Section specific layout */
+.px-icon-expertise-1 { top: 15%; left: -8%; width: 320px; transform: rotate(15deg); }
+.px-icon-expertise-2 { top: 60%; right: -5%; width: 280px; transform: rotate(-25deg); }
+/* Services Page specific layout */
+.px-icon-services-1 { top: 5%; left: -5%; width: 350px; transform: rotate(15deg); }
+.px-icon-services-2 { top: 25%; right: -5%; width: 280px; transform: rotate(-25deg); }
+.px-icon-services-3 { top: 50%; left: 0%; width: 320px; transform: rotate(10deg); }
+.px-icon-services-4 { top: 70%; right: 2%; width: 400px; transform: rotate(-15deg); }
+.px-icon-services-5 { top: 90%; left: -2%; width: 250px; transform: rotate(20deg); }
+/* CTA Section specific layout */
+.px-icon-cta-1 { top: -20%; left: -5%; width: 350px; transform: rotate(15deg); }
+.px-icon-cta-2 { bottom: -20%; right: -5%; width: 320px; transform: rotate(-25deg); }

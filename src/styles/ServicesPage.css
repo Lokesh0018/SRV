@@ -388,6 +388,8 @@
 
 .sp-list {
   padding-block: clamp(4rem, 10vh, 7rem);
+  position: relative;
+  overflow: hidden;
 }
 
 .sp-list .sp-container {
@@ -682,4 +684,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .services-page * { transition: none !important; }
+}
+
+.sp-cta {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 10vh, 6rem);
 }

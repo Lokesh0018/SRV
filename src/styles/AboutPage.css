@@ -4,6 +4,7 @@
 .about-page {
   background-color: var(--color-canvas);
   color: var(--color-ink);
+  position: relative;
 }
 
 /* in-page anchors (#founder, #expertise) clear the fixed navbar */
@@ -488,7 +489,11 @@
 
 /* ---------- CTA ---------- */
 
-.ap-cta { padding-block: clamp(4rem, 10vh, 6rem); }
+.ap-cta {
+  padding-block: clamp(4rem, 10vh, 6rem);
+  position: relative;
+  overflow: hidden;
+}
 
 .ap-cta-card {
   position: relative;
@@ -550,4 +555,8 @@
 
 @media (max-width: 520px) {
   .ap-bio .ap-bio-lead { font-size: 1.125rem; line-height: 1.6; }
+}
+
+.ap-services {
+  position: relative;
 }

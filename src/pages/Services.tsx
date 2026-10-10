@@ -4,6 +4,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { SERVICES, type Service } from '../data/services';
+import ParallaxIcons from '../components/ParallaxIcons';
+import iconTape from '../assets/construction-measuring-tape.webp';
+import iconHelmet from '../assets/construction-helmet.webp';
+import iconCones from '../assets/construction-cones.webp';
+import iconGlasses from '../assets/construction-glasses.webp';
+import iconHammer from '../assets/construction-hammer.webp';
 import '../styles/ServicesPage.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +18,8 @@ const CONTACT_HREF = '/contact';
 
 const Services: React.FC = () => {
   const root = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   
@@ -139,7 +147,17 @@ const Services: React.FC = () => {
       </section>
 
       {/* ---------- individual service cards ---------- */}
-      <section className="sp-list" aria-label="Service details">
+      <section ref={listRef} className="sp-list" aria-label="Service details">
+        <ParallaxIcons
+          containerRef={listRef}
+          icons={[
+            { src: iconTape, className: 'px-icon-services-1' },
+            { src: iconHelmet, className: 'px-icon-services-2' },
+            { src: iconCones, className: 'px-icon-services-3' },
+            { src: iconGlasses, className: 'px-icon-services-4' },
+            { src: iconHammer, className: 'px-icon-services-5' },
+          ]}
+        />
         <div className="sp-container">
           {SERVICES.map((s, i) => {
             const Icon = s.icon;
@@ -170,7 +188,14 @@ const Services: React.FC = () => {
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section className="sp-cta" aria-labelledby="sp-cta-title">
+      <section ref={ctaRef} className="sp-cta" aria-labelledby="sp-cta-title">
+        <ParallaxIcons
+          containerRef={ctaRef}
+          icons={[
+            { src: iconHelmet, className: 'px-icon-cta-1' },
+            { src: iconTape, className: 'px-icon-cta-2' },
+          ]}
+        />
         <div className="sp-container">
           <div className="sp-cta-card">
             <div>

@@ -4,6 +4,10 @@ import gsap from 'gsap';
 import { ArrowUpRight, CheckCircle2, Clock, Mail, MapPin, Navigation, Phone, Send } from 'lucide-react';
 import { SERVICES } from '../data/services';
 import { CONTACT, MAPS_DIRECTIONS_URL, MAPS_EMBED_URL } from '../data/contact';
+import ParallaxIcons from '../components/ParallaxIcons';
+import iconGlasses from '../assets/construction-glasses.webp';
+import iconHammer from '../assets/construction-hammer.webp';
+import iconMegaphone from '../assets/construction-megaphone.webp';
 import '../styles/ContactPage.css';
 
 type Fields = { name: string; phone: string; email: string; service: string; location: string; message: string };
@@ -103,6 +107,14 @@ const Contact: React.FC = () => {
 
   return (
     <main ref={root} className="contact-page">
+      <ParallaxIcons
+        containerRef={root}
+        icons={[
+          { src: iconGlasses, className: 'px-icon-contact-1' },
+          { src: iconHammer, className: 'px-icon-contact-2' },
+          { src: iconMegaphone, className: 'px-icon-contact-3' },
+        ]}
+      />
       {/* ---------- hero ---------- */}
       <section className="cp-hero" aria-labelledby="cp-title">
         <div className="cp-hero-grid" aria-hidden="true" />
