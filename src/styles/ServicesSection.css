@@ -1,0 +1,117 @@
+.services-section {
+  position: relative;
+  padding-block: clamp(6rem, 16vh, 11rem) clamp(5rem, 12vh, 8rem);
+  background-color: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.services-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding-inline: var(--hp-gutter);
+}
+
+/* ---- header ---------------------------------------------------------- */
+.services-header {
+  margin-bottom: clamp(4rem, 10vh, 7rem);
+}
+
+.services-index {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.5rem, 3.5vh, 2.25rem);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a0a0a0;
+}
+.services-index-num { color: var(--color-accent); }
+.services-index-sep {
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.services-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.6vw, 5.25rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  max-width: 15ch;
+}
+
+/* ---- grid ------------------------------------------------------------ */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.service-item {
+  background-color: var(--color-ink);
+  padding: clamp(2rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.4s ease;
+  cursor: default;
+}
+
+.service-item:hover {
+  background-color: #1a1a1a;
+}
+
+.service-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+.service-item-id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.service-item-icon {
+  color: rgba(255, 255, 255, 0.2);
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.service-item:hover .service-item-icon {
+  color: var(--color-surface);
+  transform: translateX(4px);
+}
+
+.service-item-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  max-width: 12ch;
+}
+
+.service-item-desc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 35ch;
+  margin-top: auto;
+}

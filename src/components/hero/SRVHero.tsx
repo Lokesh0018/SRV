@@ -42,7 +42,7 @@ const SRVHero: React.FC = () => {
 
 
   return (
-    <section ref={root} className="srv-hero" aria-labelledby="srv-hero-title">
+    <section ref={root} id="home" className="srv-hero" aria-labelledby="srv-hero-title">
       <div className="srv-hero-frame">
         <HeroVideo videoRef={video} reduced={reduced} />
         <HeroContent />

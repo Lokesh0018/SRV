@@ -38,7 +38,11 @@ const AboutSection: React.FC = () => {
         });
 
         gsap.from('.about-rule', {
-          scrollTrigger: { trigger: '.about-rule', start: 'top 85%' },
+          scrollTrigger: { 
+            trigger: '.about-rule', 
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          },
           scaleX: 0,
           transformOrigin: 'left center',
           duration: 1.2,

@@ -36,7 +36,11 @@ const IdeaSection: React.FC = () => {
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
         gsap.timeline({
           defaults: { ease: 'power3.out' },
-          scrollTrigger: { trigger: el, start: 'top 72%' },
+          scrollTrigger: { 
+            trigger: el, 
+            start: 'top 72%',
+            toggleActions: 'play none none reverse'
+          },
         })
           .from('.idea-index', { autoAlpha: 0, y: 12, duration: 0.6 })
           .from('.idea-title-line', { autoAlpha: 0, y: 36, duration: 0.9, stagger: 0.1, ease: 'expo.out' }, 0.1)
