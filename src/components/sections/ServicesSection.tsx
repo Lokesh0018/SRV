@@ -9,23 +9,38 @@ gsap.registerPlugin(ScrollTrigger);
 const SERVICES = [
   {
     id: '01',
-    title: 'Structural Engineering',
-    desc: 'Advanced structural analysis and engineering design ensuring maximum integrity and longevity of the built form.',
+    title: 'Constructions',
+    desc: 'End-to-end building and construction services focusing on uncompromised structural integrity and superior quality.',
   },
   {
     id: '02',
-    title: 'Architectural Design',
-    desc: 'Considered, context-driven architectural design that balances aesthetic intent with profound functional utility.',
+    title: 'Interior Designs & 3D Walkthrough',
+    desc: 'Immersive and bespoke interior concepts, visualized through highly detailed 3D walkthroughs for precise planning.',
   },
   {
     id: '03',
-    title: 'Construction Management',
-    desc: 'Rigorous on-site execution and project management, transforming precision blueprints into physical reality.',
+    title: 'Landscape & Elevations',
+    desc: 'Striking exterior elevations and lush landscape planning designed to harmonize with the built environment.',
   },
   {
     id: '04',
-    title: 'Site Surveying',
-    desc: 'Comprehensive topographical and geotechnical surveying to establish a flawless foundation for development.',
+    title: 'Survey Works',
+    desc: 'Accurate site surveying and topographical mappings to establish perfect foundations for any development.',
+  },
+  {
+    id: '05',
+    title: 'Structural Designs',
+    desc: 'Advanced engineering and structural framing that ensure durability, safety, and architectural brilliance.',
+  },
+  {
+    id: '06',
+    title: 'Architectural Planning',
+    desc: 'Strategic layout and blueprint design optimizing spatial flow, utility, and modern aesthetics.',
+  },
+  {
+    id: '07',
+    title: 'Vastu Consultant & Architecture',
+    desc: 'Harmonious architectural design rooted in traditional Vastu principles for balanced, positive living spaces.',
   }
 ];
 

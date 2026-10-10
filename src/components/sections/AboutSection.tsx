@@ -3,6 +3,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import poster from '../../assets/home-about.webp';
+import imgCones from '../../assets/construction-cones.webp';
+import imgGlasses from '../../assets/construction-glasses.webp';
+import imgHelmet from '../../assets/construction-helmet.webp';
+import imgMegaphone from '../../assets/construction-megaphone.webp';
+import imgVest from '../../assets/construction-vest.webp';
 import '../../styles/AboutSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -72,6 +77,14 @@ const AboutSection: React.FC = () => {
           stagger: 0.1,
           ease: 'power3.out'
         });
+
+        // Parallax floating objects - increased distance for noticeable effect
+        const parallaxConfig = { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1, invalidateOnRefresh: true };
+        gsap.to('.obj-cones', { y: '-70vh', rotation: 45, ease: 'none', scrollTrigger: parallaxConfig });
+        gsap.to('.obj-glasses', { y: '90vh', rotation: -40, ease: 'none', scrollTrigger: parallaxConfig });
+        gsap.to('.obj-helmet', { y: '-50vh', rotation: 20, ease: 'none', scrollTrigger: parallaxConfig });
+        gsap.to('.obj-megaphone', { y: '100vh', rotation: -60, ease: 'none', scrollTrigger: parallaxConfig });
+        gsap.to('.obj-vest', { y: '-80vh', rotation: 30, ease: 'none', scrollTrigger: parallaxConfig });
       });
     }, el);
     return () => ctx.revert();
@@ -79,6 +92,14 @@ const AboutSection: React.FC = () => {
 
   return (
     <section ref={root} id="about" className="about-section">
+      <div className="about-parallax-objects" aria-hidden="true">
+        <img src={imgCones} className="parallax-obj obj-cones" alt="" />
+        <img src={imgGlasses} className="parallax-obj obj-glasses" alt="" />
+        <img src={imgHelmet} className="parallax-obj obj-helmet" alt="" />
+        <img src={imgMegaphone} className="parallax-obj obj-megaphone" alt="" />
+        <img src={imgVest} className="parallax-obj obj-vest" alt="" />
+      </div>
+      
       <div className="about-inner">
         <div className="about-index about-reveal">
           <span className="about-index-num">01</span>

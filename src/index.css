@@ -202,3 +202,15 @@ section {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Loading Screen to push Footer off screen during Suspense */
+.loading-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-size: 1.125rem;
+  color: var(--color-ink-muted);
+  background-color: var(--color-canvas);
+}

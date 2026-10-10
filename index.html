@@ -5,6 +5,22 @@
     <link rel="icon" type="image/jpeg" href="/SRV_Logo.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SRV Associates</title>
+    <script>
+      // Force manual scroll restoration to prevent browser from returning to bottom
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      
+      // If there's a hash in the URL on refresh, strip it so the browser doesn't jump
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+      
+      // Force to top on unload and reload
+      window.addEventListener('beforeunload', function() {
+        window.scrollTo(0, 0);
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

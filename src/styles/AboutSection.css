@@ -10,10 +10,41 @@
   color: var(--color-ink-strong);
 }
 
+/* ---- Parallax Background Objects ---- */
+.about-parallax-objects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.parallax-obj {
+  position: absolute;
+  opacity: 0.4; /* Softly blended into background */
+  will-change: transform;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+}
+
+.obj-cones { top: 5%; left: -2%; width: 140px; transform: rotate(-10deg); }
+.obj-glasses { top: 45%; left: 5%; width: 110px; transform: rotate(15deg); }
+.obj-helmet { bottom: 15%; left: -2%; width: 160px; transform: rotate(-5deg); }
+.obj-megaphone { top: 60%; right: 10%; width: 120px; opacity: 0.2; transform: rotate(-20deg); }
+.obj-vest { bottom: -5%; right: 5%; width: 180px; transform: rotate(10deg); }
+
+@media (min-width: 768px) {
+  .obj-cones { top: 10%; left: 2%; width: 220px; }
+  .obj-glasses { top: 40%; left: 8%; width: 160px; }
+  .obj-helmet { bottom: 20%; left: 3%; width: 280px; }
+  .obj-megaphone { top: 50%; right: 15%; width: 180px; }
+  .obj-vest { bottom: 5%; right: 5%; width: 260px; }
+}
+
 .about-inner {
   max-width: 80rem;
   margin: 0 auto;
   padding-inline: var(--hp-gutter);
+  position: relative;
+  z-index: 1; /* Keep content above parallax */
 }
 
 /* ---- index line ------------------------------------------------------ */

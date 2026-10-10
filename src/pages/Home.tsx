@@ -15,10 +15,17 @@ const Home: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    // Force page to load at the top
+    // Force page to load at the top and clear any hash that might cause auto-jumping
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
+    
+    // Clear URL hash without triggering a reload so it doesn't jump to #contact
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Attempt immediately
     window.scrollTo(0, 0);
 
     // Basic setup for scroll triggers can go here
