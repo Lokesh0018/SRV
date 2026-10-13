@@ -508,18 +508,48 @@ const FooterAnimation: React.FC = () => {
   // Pause CSS + SMIL animation while the footer is off-screen.
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || !('IntersectionObserver' in window)) return;
-    const io = new IntersectionObserver(([entry]) => {
-      const visible = entry.isIntersecting;
-      root.toggleAttribute('data-paused', !visible);
-      root.querySelectorAll('svg').forEach((svg) => (visible ? svg.unpauseAnimations() : svg.pauseAnimations()));
-    });
+    if (!root) return;
+
+    // Immediately pause SMIL animations until the observer detects visibility
+    root.querySelectorAll('svg').forEach((svg) => svg.pauseAnimations());
+
+    if (!('IntersectionObserver' in window)) {
+      root.removeAttribute('data-paused');
+      root.querySelectorAll('svg').forEach((svg) => svg.unpauseAnimations());
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry?.isIntersecting ?? false;
+        if (visible) {
+          root.removeAttribute('data-paused');
+          root.querySelectorAll('svg').forEach((svg) => svg.unpauseAnimations());
+        } else {
+          root.setAttribute('data-paused', '');
+          root.querySelectorAll('svg').forEach((svg) => svg.pauseAnimations());
+        }
+      },
+      {
+        // 100px vertical buffer so animation wakes up seamlessly right before entering
+        rootMargin: '100px 0px 100px 0px',
+        threshold: 0,
+      }
+    );
+
     io.observe(root);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+    };
   }, []);
 
   return (
-    <div className="footer-animation-wrapper" ref={rootRef} aria-hidden="true">
+    <div
+      className="footer-animation-wrapper"
+      ref={rootRef}
+      aria-hidden="true"
+      data-paused=""
+    >
       {/* sky: sun and clouds sit behind the hills */}
       <div className="fa-anchors fa-z-sky">
         <div className="fa-slot fa-slot-sun">

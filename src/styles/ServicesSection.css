@@ -158,8 +158,7 @@
 
 .section-addon {
   position: absolute;
-  opacity: 0.08; 
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+  opacity: 0.08; /* at this opacity a drop-shadow was invisible but still painted */
   animation: float-addon 12s ease-in-out infinite alternate;
   transform-origin: center center;
 }

@@ -4,9 +4,9 @@ import { Building2, Paintbrush, Trees, Map, Hammer, PencilRuler, Compass } from 
 import imgConstruction from '../assets/service-construction.webp';
 import imgInterior from '../assets/service-interior-design.webp';
 import imgLandscape from '../assets/service-landscape.webp';
-import imgSurvey from '../assets/service-survey works.webp';
-import imgStructural from '../assets/service-structural design.webp';
-import imgArchitectural from '../assets/service-architectural planning.webp';
+import imgSurvey from '../assets/service-survey-works.webp';
+import imgStructural from '../assets/service-structural-design.webp';
+import imgArchitectural from '../assets/service-architectural-planning.webp';
 import imgVastu from '../assets/service-vastu.webp';
 
 export type Service = {

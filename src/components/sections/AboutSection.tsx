@@ -93,11 +93,11 @@ const AboutSection: React.FC = () => {
   return (
     <section ref={root} id="about" className="about-section">
       <div className="about-parallax-objects" aria-hidden="true">
-        <img src={imgCones} className="parallax-obj obj-cones" alt="" />
-        <img src={imgGlasses} className="parallax-obj obj-glasses" alt="" />
-        <img src={imgHelmet} className="parallax-obj obj-helmet" alt="" />
-        <img src={imgMegaphone} className="parallax-obj obj-megaphone" alt="" />
-        <img src={imgVest} className="parallax-obj obj-vest" alt="" />
+        <img src={imgCones} className="parallax-obj obj-cones" alt="" loading="lazy" decoding="async" />
+        <img src={imgGlasses} className="parallax-obj obj-glasses" alt="" loading="lazy" decoding="async" />
+        <img src={imgHelmet} className="parallax-obj obj-helmet" alt="" loading="lazy" decoding="async" />
+        <img src={imgMegaphone} className="parallax-obj obj-megaphone" alt="" loading="lazy" decoding="async" />
+        <img src={imgVest} className="parallax-obj obj-vest" alt="" loading="lazy" decoding="async" />
       </div>
       
       <div className="about-inner">

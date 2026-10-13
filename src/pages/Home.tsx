@@ -33,19 +33,8 @@ const Home: React.FC = () => {
     // Attempt immediately
     window.scrollTo(0, 0);
 
-    // Basic setup for scroll triggers can go here
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, []);
-
-  React.useEffect(() => {
-    // Refresh ScrollTrigger after fonts, images, and initial layout shifts have settled.
-    // This fixes issues where sections (like Services) remain empty because their trigger points were miscalculated.
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
-    return () => clearTimeout(timer);
+    // Each section reverts its own triggers on unmount, and trigger positions are
+    // kept current as fonts/images settle by refreshOnLayoutChange (App.tsx).
   }, []);
 
   // In-app links such as /#services (from the nav or another page) should land on

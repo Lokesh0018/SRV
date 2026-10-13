@@ -2,9 +2,68 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/SRV_Logo.jpg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/media/favicon-64.png" />
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SRV Associates</title>
+    <meta name="description" content="SRV Associates — architectural planning, structural design, construction, interior design, landscape, survey works and Vastu consultancy. From ground to sky." />
+    <meta name="theme-color" content="#1E2124" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" />
+    <script>
+      // Home only: fetch the loader logo and the hero poster (the LCP image, which
+      // is the video's first frame) before the bundle arrives. Must match HeroVideo.tsx.
+      if (window.location.pathname === '/') {
+        [
+          ['/media/srv-logo-light.webp'],
+          ['/media/hero-poster-960.webp', '(max-width: 800px)'],
+          ['/media/hero-poster-1600.webp', '(min-width: 801px)'],
+        ].forEach(function (p) {
+          var l = document.createElement('link');
+          l.rel = 'preload'; l.as = 'image'; l.href = p[0];
+          if (p[1]) l.media = p[1];
+          l.setAttribute('fetchpriority', 'high');
+          document.head.appendChild(l);
+        });
+      }
+    </script>
+    <style>
+      /* Hero loader — painted before the JS bundle arrives. Controlled by
+         src/components/hero/heroLoader.ts; only shown on the home page. */
+      html.srv-loading, html.srv-loading body { overflow: hidden; }
+      #srv-loader {
+        --p: 0;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        background: #1E2124;
+        color: #F7F6F3;
+        font-family: 'Geist Mono Variable', 'SF Mono', ui-monospace, monospace;
+      }
+      #srv-loader[hidden] { display: none; }
+      .ldr-mark { position: relative; width: clamp(150px, 26vw, 220px); aspect-ratio: 822 / 720; }
+      .ldr-mark img { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .ldr-ghost { opacity: 0.12; }
+      /* the mark is built from the ground up as the page loads */
+      .ldr-fill { clip-path: inset(calc((1 - var(--p)) * 100%) 0 0 0); }
+      .ldr-meter { position: relative; width: clamp(150px, 26vw, 220px); height: 2px; background: rgba(247, 246, 243, 0.14); overflow: hidden; }
+      .ldr-bar { position: absolute; inset: 0; background: #F36A16; transform-origin: left center; transform: scaleX(var(--p)); }
+      /* until the script takes over, a survey pulse runs along the ground line */
+      #srv-loader:not([data-live]) .ldr-bar { width: 30%; transform: none; animation: ldr-survey 1.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+      @keyframes ldr-survey { from { transform: translateX(-100%); } to { transform: translateX(340%); } }
+      .ldr-meta { display: flex; justify-content: space-between; width: clamp(150px, 26vw, 220px); margin: -16px 0 0; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247, 246, 243, 0.62); }
+      .ldr-pct { color: #F7F6F3; font-variant-numeric: tabular-nums; }
+      .ldr-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      @media (prefers-reduced-motion: reduce) {
+        #srv-loader:not([data-live]) .ldr-bar { animation: none; width: 100%; opacity: 0.4; }
+      }
+    </style>
     <script>
       // Force manual scroll restoration to prevent browser from returning to bottom
       if ('scrollRestoration' in window.history) {
@@ -23,6 +82,30 @@
     </script>
   </head>
   <body>
+    <div id="srv-loader" role="status" aria-busy="true">
+      <div class="ldr-mark" aria-hidden="true">
+        <img class="ldr-ghost" src="/media/srv-logo-light.webp" alt="" width="440" height="385" />
+        <img class="ldr-fill" src="/media/srv-logo-light.webp" alt="" width="440" height="385" />
+      </div>
+      <div class="ldr-meter" aria-hidden="true"><span class="ldr-bar"></span></div>
+      <p class="ldr-meta" aria-hidden="true"><span class="ldr-stage">Surveying</span><span class="ldr-pct">000%</span></p>
+      <span class="ldr-sr">Loading SRV Associates</span>
+    </div>
+    <script>
+      // The loader only fronts the home hero; other routes start without it.
+      (function () {
+        var loader = document.getElementById('srv-loader');
+        if (window.location.pathname !== '/') { loader.remove(); return; }
+        document.documentElement.classList.add('srv-loading');
+        // Safety net if the app never takes over (e.g. the bundle failed).
+        setTimeout(function () {
+          if (document.getElementById('srv-loader') && !loader.hasAttribute('data-live')) {
+            loader.remove();
+            document.documentElement.classList.remove('srv-loading');
+          }
+        }, 4000);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

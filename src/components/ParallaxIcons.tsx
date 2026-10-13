@@ -18,7 +18,9 @@ const ParallaxIcons: React.FC<ParallaxIconsProps> = ({ icons, containerRef }) =>
     if (!el || !containerRef.current) return;
     
     const ctx = gsap.context(() => {
-      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+      // Large screens only: on phones these icons sit mostly off-canvas and the
+      // scrubbed motion competes with scrolling for the main thread.
+      gsap.matchMedia().add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
         gsap.utils.toArray('.px-icon').forEach((icon: any, i) => {
           const speed = (i % 2 === 0 ? -0.3 : -0.5); // Move up at different speeds
           const rotateSpeed = (i % 2 === 0 ? 15 : -15); // Slight rotation
@@ -44,7 +46,7 @@ const ParallaxIcons: React.FC<ParallaxIconsProps> = ({ icons, containerRef }) =>
   return (
     <div ref={root} className="parallax-icons" aria-hidden="true">
       {icons.map((icon, i) => (
-        <img key={i} src={icon.src} alt="" className={`px-icon ${icon.className}`} />
+        <img key={i} src={icon.src} alt="" className={`px-icon ${icon.className}`} loading="lazy" decoding="async" />
       ))}
     </div>
   );

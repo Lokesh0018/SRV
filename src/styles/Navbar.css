@@ -22,6 +22,19 @@ nav.is-open,
   border-bottom-color: var(--color-border);
 }
 
+/* Phones: a fixed blurred bar re-blurs everything scrolling under it every
+   frame, which is the main source of scroll jank on mid-range devices. A
+   near-opaque fill looks almost identical at this size. */
+@media (max-width: 768px) {
+  nav.scrolled,
+  nav.is-open,
+  .site-nav.scrolled,
+  .site-nav.is-open {
+    background-color: rgba(247, 246, 243, 0.97);
+    backdrop-filter: none;
+  }
+}
+
 .nav-content {
   display: flex;
   align-items: center;

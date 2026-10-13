@@ -1,6 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import gsap from 'gsap';
 import { ArrowUpRight, CheckCircle2, Clock, Mail, MapPin, Navigation, Phone, Send } from 'lucide-react';
 import { SERVICES } from '../data/services';
 import { CONTACT, MAPS_DIRECTIONS_URL, MAPS_EMBED_URL } from '../data/contact';
@@ -57,18 +56,7 @@ const Contact: React.FC = () => {
     window.scrollTo(0, 0);
     const prevTitle = document.title;
     document.title = 'Contact | SRV Associates';
-    const el = root.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.timeline({ defaults: { ease: 'power3.out' } })
-          .from('.cp-hero-copy > *', { y: 22, opacity: 0, duration: 0.8, stagger: 0.07 })
-          .from('.cp-quick a', { y: 18, opacity: 0, duration: 0.6, stagger: 0.07 }, '-=0.5')
-          .from('.cp-form-card, .cp-aside > *', { y: 26, opacity: 0, duration: 0.8, stagger: 0.08 }, '-=0.4');
-      });
-    }, el);
     return () => {
-      ctx.revert();
       document.title = prevTitle;
     };
   }, []);

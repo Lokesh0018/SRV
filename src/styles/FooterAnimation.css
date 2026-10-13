@@ -306,8 +306,14 @@
 
 /* ---------- motion ---------- */
 
-.footer-animation-wrapper[data-paused] .fa-anim {
-  animation-play-state: paused;
+.footer-animation-wrapper[data-paused] *,
+.footer-animation-wrapper[data-paused] .fa-anim,
+.footer-animation-wrapper[data-paused] .fa-lane-svg,
+.footer-animation-wrapper[data-paused] .fa-cloud,
+.footer-animation-wrapper[data-paused] .fa-wheel,
+.footer-animation-wrapper[data-paused] .fa-drum,
+.footer-animation-wrapper[data-paused] .fa-dump-bed {
+  animation-play-state: paused !important;
 }
 
 /* Static fallback: the convoy rests in place; SMIL animations are not rendered. */

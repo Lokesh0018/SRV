@@ -1,5 +1,5 @@
 /*
- * Chapters of hero-bg.webm (8 s, 24 fps). Start times are the measured scene
+ * Chapters of the hero video (hero-*.webm / hero-1280.mp4; 8 s, 24 fps). Start times are the measured scene
  * cuts (frames 39, 77, 119); the facade has no cut — glazing fades in from
  * ~6.75 s — so that boundary is set by eye.
  */

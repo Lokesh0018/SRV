@@ -3,12 +3,14 @@ import { Suspense, lazy, useEffect } from 'react';
 import Navbar from './components/Navbar';
 
 import Footer from './components/Footer';
+import { loadRoute, prefetchAllWhenIdle } from './routes';
+import { refreshOnLayoutChange } from './lib/scrollTrigger';
 
-// Lazy load pages for performance
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Services = lazy(() => import('./pages/Services'));
-const Contact = lazy(() => import('./pages/Contact'));
+// Lazy load pages for performance; the other pages are prefetched once idle
+const Home = lazy(loadRoute['/']);
+const About = lazy(loadRoute['/about']);
+const Services = lazy(loadRoute['/services']);
+const Contact = lazy(loadRoute['/contact']);
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,19 +28,26 @@ function ScrollToTop() {
 }
 
 function App() {
+  useEffect(prefetchAllWhenIdle, []);
+  useEffect(() => refreshOnLayoutChange(), []);
+
   return (
     <Router>
       <ScrollToTop />
-      <Navbar />
-      <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Suspense>
-      <Footer />
+      <div className="app-shell">
+        <Navbar />
+        <main className="app-main">
+          <Suspense fallback={<div className="page-loading-skeleton" aria-hidden="true" />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

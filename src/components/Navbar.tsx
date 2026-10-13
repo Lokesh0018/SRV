@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { prefetchRoute } from '../routes';
 import '../styles/Navbar.css';
 
 const LINKS = [
@@ -43,9 +44,9 @@ const Navbar: React.FC = () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }}>
-          <img className="logo-dark" src="/SRV_Logo.png" alt="SRV Associates — home" width={822} height={720} />
+          <img className="logo-dark" src="/media/srv-logo.webp" alt="SRV Associates — home" width={194} height={170} />
           {/* light lockup, shown while the nav floats over the hero footage */}
-          <img className="logo-light" src="/SRV_Logo_light.png" alt="" aria-hidden="true" width={822} height={720} />
+          <img className="logo-light" src="/media/srv-logo-light-nav.webp" alt="" aria-hidden="true" width={194} height={170} />
         </Link>
 
         <div className="nav-right">
@@ -61,14 +62,20 @@ const Navbar: React.FC = () => {
               };
               return (
                 <li key={l.label}>
-                  <Link to={l.href} className={`nav-link${isActive ? ' is-active' : ''}`} onClick={handleClick}>
+                  <Link
+                    to={l.href}
+                    className={`nav-link${isActive ? ' is-active' : ''}`}
+                    onClick={handleClick}
+                    onPointerEnter={() => prefetchRoute(l.href)}
+                    onFocus={() => prefetchRoute(l.href)}
+                  >
                     {l.label}
                   </Link>
                 </li>
               );
             })}
             <li className="nav-links-cta">
-              <Link to="/contact" className="nav-cta" onClick={() => {
+              <Link to="/contact" className="nav-cta" onPointerEnter={() => prefetchRoute('/contact')} onFocus={() => prefetchRoute('/contact')} onClick={() => {
                 close();
                 if (pathname === '/contact') {
                   window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -47,15 +47,8 @@ const CautionTapeSection: React.FC = () => {
       });
     }, el);
 
-    // Refresh ScrollTrigger to account for images/videos loading above and pushing this section down
-    const to1 = setTimeout(() => ScrollTrigger.refresh(), 100);
-    const to2 = setTimeout(() => ScrollTrigger.refresh(), 500);
-    const to3 = setTimeout(() => ScrollTrigger.refresh(), 1500);
-
+    // Content loading above this section is handled by refreshOnLayoutChange (App.tsx).
     return () => {
-      clearTimeout(to1);
-      clearTimeout(to2);
-      clearTimeout(to3);
       ctx.revert();
     };
   }, []);

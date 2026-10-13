@@ -49,9 +49,8 @@ const Services: React.FC = () => {
     const ctx = gsap.context(() => {
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
         gsap.timeline({ defaults: { ease: 'power3.out' } })
-          .from('.sp-hero-head > *, .sp-hero-copy > *', { y: 24, opacity: 0, duration: 0.8, stagger: 0.07 })
           // the 7 builds cell by cell: across the bar, then down the stem
-          .from('.sp-cell-item', { opacity: 0, y: 14, duration: 0.5, stagger: 0.08 }, 0.35);
+          .from('.sp-cell-item', { opacity: 0, y: 14, duration: 0.5, stagger: 0.08 }, 0.1);
 
         // Fade the card, slide only its contents: a transform on the card itself would
         // skew the browser's anchor-scroll target when a hero tile is clicked.
@@ -75,9 +74,7 @@ const Services: React.FC = () => {
       });
     }, el);
 
-    const refresh = setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {
-      clearTimeout(refresh);
       ctx.revert();
       document.title = prevTitle;
     };
@@ -164,7 +161,7 @@ const Services: React.FC = () => {
             return (
               <article key={s.id} id={s.slug} className={`sp-card${i % 2 ? ' is-flipped' : ''}`} aria-labelledby={`${s.slug}-title`}>
                 <div className="sp-card-media">
-                  <img src={s.image} alt="" loading={i < 2 ? 'eager' : 'lazy'} />
+                  <img src={s.image} alt="" loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
                   <span className="sp-card-badge">{s.id} / 07</span>
                 </div>
                 <div className="sp-card-body">

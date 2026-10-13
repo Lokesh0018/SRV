@@ -27,21 +27,16 @@ const AboutHero: React.FC = () => {
         });
 
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.from('.ah-eyebrow', { y: 16, opacity: 0, duration: 0.7, stagger: 0.08 })
-          .from('.ah-title', { y: 28, opacity: 0, duration: 0.9 }, '-=0.45')
-          .from('.ah-accent-inner', { yPercent: 105, duration: 0.95, ease: 'power4.out' }, '-=0.55')
-          .from('.ah-desc', { y: 18, opacity: 0, duration: 0.8 }, '-=0.6')
-          .from('.ah-actions > *, .ah-meta', { y: 14, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.55')
-          .from('.ah-frame', { opacity: 0, duration: 1 }, 0.2)
-          .from('.ah-corner', { opacity: 0, scale: 0.85, transformOrigin: '100% 0%', duration: 0.8 }, 0.5)
-          .from('.ah-building', { y: 36, opacity: 0, duration: 1.3 }, 0.3)
+        tl.from('.ah-frame', { opacity: 0, duration: 1 }, 0)
+          .from('.ah-corner', { opacity: 0, scale: 0.85, transformOrigin: '100% 0%', duration: 0.8 }, 0.2)
+          .from('.ah-building', { y: 36, opacity: 0, duration: 1.3 }, 0.1)
           .to(strokes, {
             strokeDashoffset: 0, duration: 1.4, stagger: 0.05, ease: 'power2.inOut',
             // hand the dash pattern back to CSS (centrelines are dashed once drawn)
             onComplete: () => gsap.set(strokes, { clearProps: 'strokeDasharray,strokeDashoffset' }),
-          }, 0.7)
-          .from('.ah-bubble', { opacity: 0, scale: 0.6, transformOrigin: 'center', duration: 0.5, stagger: 0.04 }, 1.3)
-          .from('.ah-card', { y: 24, opacity: 0, duration: 0.9 }, 1.1);
+          }, 0.3)
+          .from('.ah-bubble', { opacity: 0, scale: 0.6, transformOrigin: 'center', duration: 0.5, stagger: 0.04 }, 0.8)
+          .from('.ah-card', { y: 24, opacity: 0, duration: 0.9 }, 0.6);
 
         // Restrained pointer parallax: each layer drifts a few px, nothing rotates.
         if (!window.matchMedia('(pointer: fine)').matches) return;
@@ -152,7 +147,7 @@ const AboutHero: React.FC = () => {
           />
 
           <figure className="ah-card">
-            <span className="ah-avatar"><img src={imgFounder} alt="" /></span>
+            <span className="ah-avatar"><img src={imgFounder} alt="" decoding="async" /></span>
             <figcaption>
               <span className="ah-card-name">P. Narasimha Murthy</span>
               <span className="ah-card-role">Principal Structural Engineer &amp; Founder</span>

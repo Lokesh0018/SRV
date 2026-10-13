@@ -59,13 +59,13 @@ const ServicesSection: React.FC = () => {
   return (
     <section ref={root} id="services" className="services-section">
       <div className="services-addons" aria-hidden="true">
-        <img src={imgCones} alt="" className="section-addon addon-1" loading="lazy" />
-        <img src={imgHelmet} alt="" className="section-addon addon-2" loading="lazy" />
-        <img src={imgTape} alt="" className="section-addon addon-3" loading="lazy" />
-        <img src={imgHammer} alt="" className="section-addon addon-4" loading="lazy" />
-        <img src={imgGlasses} alt="" className="section-addon addon-5" loading="lazy" />
-        <img src={imgMegaphone} alt="" className="section-addon addon-6" loading="lazy" />
-        <img src={imgVest} alt="" className="section-addon addon-7" loading="lazy" />
+        <img src={imgCones} alt="" className="section-addon addon-1" loading="lazy" decoding="async" />
+        <img src={imgHelmet} alt="" className="section-addon addon-2" loading="lazy" decoding="async" />
+        <img src={imgTape} alt="" className="section-addon addon-3" loading="lazy" decoding="async" />
+        <img src={imgHammer} alt="" className="section-addon addon-4" loading="lazy" decoding="async" />
+        <img src={imgGlasses} alt="" className="section-addon addon-5" loading="lazy" decoding="async" />
+        <img src={imgMegaphone} alt="" className="section-addon addon-6" loading="lazy" decoding="async" />
+        <img src={imgVest} alt="" className="section-addon addon-7" loading="lazy" decoding="async" />
       </div>
       <div className="services-inner">
         <header className="services-header">
@@ -83,7 +83,7 @@ const ServicesSection: React.FC = () => {
           {SERVICES.map((s) => (
             <article key={s.id} className="service-item">
               <div className="service-item-bg-wrapper">
-                <img src={s.image} alt={s.title} className="service-item-bg" loading="lazy" />
+                <img src={s.image} alt={s.title} className="service-item-bg" loading="lazy" decoding="async" />
                 <div className="service-item-overlay"></div>
               </div>
               <div className="service-item-head">

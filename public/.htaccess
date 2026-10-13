@@ -1,3 +1,47 @@
+# Correct MIME types for media. Without these the host serves the hero video as
+# text/plain, which Safari/iOS (and some Chromium builds) refuse to play.
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4 .m4v
+  AddType video/webm .webm
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+</IfModule>
+
+# Never gzip media: a compressed response can't answer byte-range requests,
+# and Safari requires 206 Partial Content to play <video>.
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Request_URI \.(mp4|m4v|webm|webp|avif|jpe?g|png)$ no-gzip dont-vary
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(mp4|webm)$">
+    Header set Accept-Ranges "bytes"
+  </FilesMatch>
+  # 1-year immutable cache for versioned/hashed Vite assets & web fonts
+  <FilesMatch "\.(js|css|woff2|woff|ttf|eot)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+  # 1-month cache for static media
+  <FilesMatch "\.(webp|avif|png|jpg|jpeg|svg|webm)$">
+    Header set Cache-Control "max-age=2592000, public"
+  </FilesMatch>
+  # Never cache index.html so deployments take effect immediately
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Brotli (~15-20% smaller than gzip) where the host has mod_brotli; gzip below otherwise.
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /

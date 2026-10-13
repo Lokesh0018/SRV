@@ -22,11 +22,11 @@ import '../styles/AboutPage.css';
 import AboutHero from '../components/about/AboutHero';
 import ParallaxIcons from '../components/ParallaxIcons';
 
-import imgStructural from '../assets/service-structural design.webp';
-import imgArchitectural from '../assets/service-architectural planning.webp';
+import imgStructural from '../assets/service-structural-design.webp';
+import imgArchitectural from '../assets/service-architectural-planning.webp';
 import imgInterior from '../assets/service-interior-design.webp';
 import imgVastu from '../assets/service-vastu.webp';
-import imgSurvey from '../assets/service-survey works.webp';
+import imgSurvey from '../assets/service-survey-works.webp';
 import imgConstruction from '../assets/service-construction.webp';
 
 import iconHelmet from '../assets/construction-helmet.webp';
@@ -110,9 +110,7 @@ const About: React.FC = () => {
       });
     }, el);
 
-    const refresh = setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {
-      clearTimeout(refresh);
       ctx.revert();
       document.title = prevTitle;
     };
@@ -137,7 +135,7 @@ const About: React.FC = () => {
           <aside className="ap-profile ap-reveal">
             <div className="ap-portrait">
               {FOUNDER_PHOTO ? (
-                <img src={FOUNDER_PHOTO} alt="P. Narasimha Murthy, Principal Structural Engineer and Founder of SRV Associates" />
+                <img src={FOUNDER_PHOTO} alt="P. Narasimha Murthy, Principal Structural Engineer and Founder of SRV Associates" loading="lazy" decoding="async" />
               ) : (
                 <div className="ap-portrait-placeholder" role="img" aria-label="P. Narasimha Murthy">
                   <span className="ap-monogram">PNM</span>
@@ -237,7 +235,7 @@ const About: React.FC = () => {
               return (
                 <li key={s.title} className="ap-service ap-reveal">
                   <div className="ap-service-media">
-                    <img src={s.image} alt="" loading="lazy" />
+                    <img src={s.image} alt="" loading="lazy" decoding="async" />
                   </div>
                   <div className="ap-service-body">
                     <span className="ap-service-icon" aria-hidden="true"><Icon size={22} strokeWidth={1.75} /></span>

@@ -207,8 +207,8 @@
   width: 90%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(243, 106, 22, 0.16), transparent);
-  filter: blur(8px);
+  /* already soft at the edges; a blur filter on top added cost, not softness */
+  background: radial-gradient(closest-side, rgba(243, 106, 22, 0.16), rgba(243, 106, 22, 0.05) 70%, transparent);
   pointer-events: none;
 }
 
@@ -447,13 +447,13 @@
   top: 1rem;
   padding: 0.375rem 0.75rem;
   border-radius: 999px;
-  background: rgba(17, 17, 17, 0.78);
+  /* solid enough that a backdrop blur is invisible; skipping it saves a
+     filter pass per card on every scroll frame */
+  background: rgba(17, 17, 17, 0.84);
   color: #fff;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 
 .sp-card-body {

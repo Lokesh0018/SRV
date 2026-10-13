@@ -1,13 +1,13 @@
 /* =====================================================================
    SRV hero — "From ground to sky"
-   Full-bleed construction time-lapse (src/assets/hero-bg.webm) with copy
+   Full-bleed construction time-lapse (src/assets/hero-{960,1920}.webm, hero-1280.mp4) with copy
    and a chapter bar synced to the footage.
    ===================================================================== */
 
 .srv-hero {
   --srv-orange: var(--color-accent, #EA580C);
   --srv-charcoal: #1E2124;
-  --font-tech: var(--font-mono, 'Geist Mono', monospace);
+  --font-tech: var(--font-mono, 'Geist Mono Variable', monospace);
   --dip: 0;
   position: relative;
   height: 100svh;

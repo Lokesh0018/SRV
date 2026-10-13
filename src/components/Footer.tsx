@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
-import FooterAnimation from './FooterAnimation';
+
+// The animated landscape is a large SVG scene at the very bottom of every page:
+// fetch and mount it only when the footer gets near the viewport.
+const FooterAnimation = lazy(() => import('./FooterAnimation'));
 
 const Footer: React.FC = () => {
+  const mainRef = useRef<HTMLDivElement>(null);
+  const [showScene, setShowScene] = useState(false);
+
+  useEffect(() => {
+    const el = mainRef.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setShowScene(true);
+      return;
+    }
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setShowScene(true);
+      io.disconnect();
+    }, { rootMargin: '800px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <footer className="footer">
-      <div className="footer-main">
+      <div className="footer-main" ref={mainRef}>
         {/* Decorative panoramic construction landscape inside footer-main */}
-        <FooterAnimation />
+        {showScene && (
+          <Suspense fallback={null}>
+            <FooterAnimation />
+          </Suspense>
+        )}
 
         <div className="container footer-grid">
           <div className="footer-col brand-col">
             <a href="#" className="footer-logo">
-              <img src="/SRV_Logo.jpg" alt="SRV Associates Logo" />
+              <img src="/media/srv-logo-footer.webp" alt="SRV Associates Logo" width={192} height={192} loading="lazy" decoding="async" />
             </a>
             <p className="footer-desc">
               Comprehensive architectural and structural engineering solutions. From ground to sky.
