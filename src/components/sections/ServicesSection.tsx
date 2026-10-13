@@ -24,16 +24,6 @@ const ServicesSection: React.FC = () => {
 
     const ctx = gsap.context(() => {
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.timeline({
-          defaults: { ease: 'power3.out' },
-          scrollTrigger: { 
-            trigger: el, 
-            start: 'top 80%',
-            invalidateOnRefresh: true
-          },
-        })
-          .from('.service-item', { autoAlpha: 0, duration: 0.8, stagger: 0.1 });
-
         // Parallax effect for 3D addons
         gsap.utils.toArray('.section-addon').forEach((addon: any, index) => {
           const speed = (index % 3 + 1) * 80;

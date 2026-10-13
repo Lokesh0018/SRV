@@ -18,12 +18,9 @@ const Home: React.FC = () => {
   const mountedAt = useRef(0);
 
   useLayoutEffect(() => {
-    // Force page to load at the top and clear any hash that might cause auto-jumping
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-    
+    // Scroll restoration is switched to manual once per page load in index.html.
     // Clear URL hash without triggering a reload so it doesn't jump to #contact
+    // (index.html covers a fresh load; this covers in-app navigation to /#section)
     if (window.location.hash) {
       window.history.replaceState(null, '', window.location.pathname);
     }

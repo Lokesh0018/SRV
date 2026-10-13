@@ -369,20 +369,6 @@
 .sp-cell .sp-cell-label { grid-area: label; align-self: start; justify-self: start; }
 
 /* Sits in the open triangle of the numeral */
-.sp-seven-hint {
-  position: absolute;
-  left: 0;
-  top: calc(var(--bar-h) + 7%);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #6b6965;
-}
-.sp-seven-hint svg { color: var(--color-accent); }
 
 /* ---------- service cards ---------- */
 
@@ -625,7 +611,6 @@
   .sp-facts dd { font-size: 0.8125rem; white-space: nowrap; }
   .sp-facts dt { font-size: 0.625rem; }
   .sp-seven { --g: 3px; }
-  .sp-seven-hint { display: none; }
   .sp-cell { padding: 0.5rem; }
   .sp-cell-item .sp-cell { padding-left: calc(var(--skew) / 2 + 0.25rem); padding-right: calc(var(--skew) / 2); gap: 0.375rem; }
   .sp-cell-num { font-size: 0.5625rem; letter-spacing: 0.08em; }

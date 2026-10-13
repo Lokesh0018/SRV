@@ -21,8 +21,25 @@ const Footer: React.FC = () => {
       setShowScene(true);
       io.disconnect();
     }, { rootMargin: '800px 0px' });
-    io.observe(el);
-    return () => io.disconnect();
+    // While a lazy route is still loading the page is empty and the footer sits
+    // in view, so only start watching once the visitor scrolls (or, for pages
+    // too short to scroll, a few seconds after load).
+    let fallback = 0;
+    const start = () => {
+      window.removeEventListener('scroll', start);
+      window.clearTimeout(fallback);
+      io.observe(el);
+    };
+    const arm = () => { fallback = window.setTimeout(start, 3000); };
+    window.addEventListener('scroll', start, { once: true, passive: true });
+    if (document.readyState === 'complete') arm();
+    else window.addEventListener('load', arm, { once: true });
+    return () => {
+      window.removeEventListener('scroll', start);
+      window.removeEventListener('load', arm);
+      window.clearTimeout(fallback);
+      io.disconnect();
+    };
   }, []);
 
   return (

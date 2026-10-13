@@ -1,7 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -35,8 +33,6 @@ import iconCones from '../assets/construction-cones.webp';
 import iconVest from '../assets/construction-vest.webp';
 import iconGlasses from '../assets/construction-glasses.webp';
 import iconMegaphone from '../assets/construction-megaphone.webp';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* Where the CTAs point. */
 const CONTACT_HREF = '/contact';
@@ -95,23 +91,7 @@ const About: React.FC = () => {
     const prevTitle = document.title;
     document.title = 'About | SRV Associates – Structural Engineering Experts';
 
-    const el = root.current;
-    if (!el) return;
-    const ctx = gsap.context(() => {
-      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-
-        const below = '.about-page > section:not(.ah) .ap-reveal';
-        gsap.set(below, { y: 28, opacity: 0 });
-        ScrollTrigger.batch(below, {
-          start: 'top 90%',
-          once: true,
-          onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: 'power3.out', overwrite: true }),
-        });
-      });
-    }, el);
-
     return () => {
-      ctx.revert();
       document.title = prevTitle;
     };
   }, []);

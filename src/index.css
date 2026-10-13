@@ -149,28 +149,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.15;
 }
 
-.text-hero,
-.text-h2 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-}
-
-.text-hero {
-  font-size: clamp(2.5rem, 6.5vw, 5.25rem);
-  line-height: 1.1;
-}
-
-.text-h2 {
-  font-size: clamp(1.875rem, 4vw, 3rem);
-  line-height: 1.15;
-}
-
-.text-body {
-  font-size: 1.0625rem;
-  line-height: 1.6;
-}
-
 /* Layout */
 .container {
   width: 100%;
@@ -180,10 +158,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Buttons */
-.btn-solid,
-.btn-quiet,
-.btn-primary,
-.btn-secondary {
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -200,52 +175,19 @@ h1, h2, h3, h4, h5, h6 {
               border-color 0.2s ease, transform 0.12s ease;
 }
 
-.btn-solid,
 .btn-primary {
   background-color: var(--color-ink-strong);
   color: var(--color-surface);
   border: 1px solid var(--color-ink-strong);
 }
 
-.btn-solid:hover,
 .btn-primary:hover {
   background-color: #333333;
   border-color: #333333;
 }
 
-.btn-quiet,
-.btn-secondary {
-  background-color: transparent;
-  color: var(--color-ink);
-  border: 1px solid var(--color-border);
-}
-
-.btn-quiet:hover,
-.btn-secondary:hover {
-  background-color: var(--color-surface);
-  border-color: #DCDCDC;
-}
-
-.btn-solid:active,
-.btn-quiet:active,
-.btn-primary:active,
-.btn-secondary:active {
+.btn-primary:active {
   transform: scale(0.98);
-}
-
-.btn-icon {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 0.2s var(--ease-quiet);
-}
-
-.btn-quiet:hover .btn-icon {
-  transform: translateX(3px);
 }
 
 /* Sections */
@@ -253,12 +195,6 @@ section {
   position: relative;
   z-index: var(--z-content);
 }
-
-/* Utilities */
-.text-orange { color: var(--color-accent); }
-.text-navy { color: var(--color-ink-strong); }
-.bg-navy { background-color: var(--color-ink-strong); color: var(--color-surface); }
-.bg-charcoal { background-color: var(--color-ink); color: var(--color-surface); }
 
 /* Focus visibility (keyboard nav) */
 :focus-visible {
@@ -278,16 +214,4 @@ section {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* Loading Screen to push Footer off screen during Suspense */
-.loading-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-primary);
-  font-size: 1.125rem;
-  color: var(--color-ink-muted);
-  background-color: var(--color-canvas);
 }

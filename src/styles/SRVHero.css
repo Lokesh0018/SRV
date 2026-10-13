@@ -1,14 +1,13 @@
 /* =====================================================================
    SRV hero — "From ground to sky"
-   Full-bleed construction time-lapse (src/assets/hero-{960,1920}.webm, hero-1280.mp4) with copy
-   and a chapter bar synced to the footage.
+   Full-bleed construction time-lapse (src/assets/hero-{960,1920}.webm,
+   hero-1280.mp4) with the headline copy over it.
    ===================================================================== */
 
 .srv-hero {
   --srv-orange: var(--color-accent, #EA580C);
   --srv-charcoal: #1E2124;
   --font-tech: var(--font-mono, 'Geist Mono Variable', monospace);
-  --dip: 0;
   position: relative;
   height: 100svh;
   min-height: 680px;
@@ -47,31 +46,6 @@
   /* premium cinematic construction grade: realistic contrast, controlled highlights, natural warmth */
   filter: saturate(1.05) contrast(1.08) brightness(0.95) sepia(0.04);
   pointer-events: none;
-}
-
-/* warm dip across the loop seam (finished building -> bare ground) */
-.srv-dip {
-  position: absolute;
-  inset: 0;
-  background: #F3ECE1;
-  opacity: calc(var(--dip) * 0.6);
-  pointer-events: none;
-}
-
-/* ---------------------------------------------------------------------
-   Legibility: one uniform warm tint over the whole frame — no washes or
-   fades behind the copy. Keeps white type readable in every scene,
-   including the bright sky of the opening shots.
-   --------------------------------------------------------------------- */
-.srv-scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.srv-tint { background: rgba(16, 12, 8, 0.46); }
-.srv-dissolve {
-  opacity: 0;
-  background: linear-gradient(0deg, var(--color-canvas) 0%, var(--color-canvas) 10%, rgba(247, 246, 243, 0.85) 26%, rgba(247, 246, 243, 0) 60%);
 }
 
 /* ---------------------------------------------------------------------
@@ -199,118 +173,19 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* leave room for the chapter bar under the copy */
+/* the copy sits flush with the bottom of its column */
 .srv-content { padding-bottom: 0; }
-
-/* ---------------------------------------------------------------------
-   Chapter bar — synced to the footage
-   --------------------------------------------------------------------- */
-.srv-chapters {
-  position: absolute;
-  left: var(--hp-gutter);
-  right: var(--hp-gutter);
-  bottom: clamp(1.25rem, 3.5vh, 2.25rem);
-  z-index: 3;
-  display: flex;
-  align-items: flex-end;
-  gap: clamp(1rem, 2.5vw, 2.5rem);
-}
-
-.srv-chapter-list {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.6vw, 1.5rem);
-  list-style: none;
-}
-
-.srv-chapter {
-  --p: 0;
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  column-gap: 0.6rem;
-  padding-top: 0.85rem;
-  color: rgba(255, 255, 255, 0.60);
-  transition: color 0.35s ease;
-}
-
-.srv-chapter-track {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.24);
-  overflow: hidden;
-}
-.srv-chapter-fill {
-  position: absolute;
-  inset: 0;
-  background: var(--srv-orange);
-  transform: scaleX(var(--p));
-  transform-origin: left;
-}
-.srv-chapter.is-done .srv-chapter-fill { background: rgba(255, 255, 255, 0.85); }
-
-.srv-chapter-num {
-  font-family: var(--font-tech);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-}
-.srv-chapter-label {
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.srv-chapter-detail {
-  grid-column: 2;
-  margin-top: 0.3rem;
-  font-family: var(--font-primary);
-  font-size: 0.75rem;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.82);
-  visibility: hidden;
-}
-
-.srv-chapter.is-active { color: #fff; }
-.srv-chapter.is-active .srv-chapter-num,
-.srv-chapter.is-active .srv-chapter-label { color: var(--srv-orange); }
-.srv-chapter.is-active .srv-chapter-detail { visibility: visible; }
-/* removed text-shadow for a cleaner look */
-
-.srv-video-toggle {
-  flex-shrink: 0;
-  display: inline-grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 50%;
-  background: rgba(20, 14, 8, 0.25);
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-.srv-video-toggle:hover { background: rgba(20, 14, 8, 0.5); border-color: #fff; }
 
 /* ---------------------------------------------------------------------
    Tablet landscape: a wider text-safe area
    --------------------------------------------------------------------- */
 @media (max-width: 1199px) {
   .srv-content { width: min(36rem, 58vw); }
-  .srv-chapter-detail { display: none; }
 }
 
 /* ---------------------------------------------------------------------
    Stacked (phones + portrait tablets): copy on a daylight wash at the
-   top, the footage reads underneath, compact chapter bar at the bottom.
+   top, the footage reads underneath.
    --------------------------------------------------------------------- */
 @media (max-width: 767px), (orientation: portrait) and (max-width: 1100px) {
   .srv-hero { height: auto; min-height: 100svh; }
@@ -326,13 +201,6 @@
   }
 
   .srv-video { object-position: 60% 50%; }
-  /* copy covers more of the frame here, so the tint is a little deeper */
-  .srv-tint { background: rgba(16, 12, 8, 0.56); }
-
-  /* numbers only; the active chapter's name sits under its line */
-  .srv-chapter { grid-template-columns: 1fr; row-gap: 0.25rem; }
-  .srv-chapter-label { display: none; }
-  .srv-chapter.is-active .srv-chapter-label { display: block; overflow: visible; }
 }
 
 @media (max-width: 767px) {
@@ -342,6 +210,4 @@
   .srv-actions > * { flex: 1 1 100%; }
   .srv-facts { flex-wrap: wrap; }
   .srv-fact { padding-inline: 1.1rem; }
-  .srv-chapters { gap: 0.75rem; }
-  .srv-chapter-list { gap: 0.5rem; }
 }

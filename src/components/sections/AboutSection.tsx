@@ -33,49 +33,10 @@ const AboutSection: React.FC = () => {
 
     const ctx = gsap.context(() => {
       gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.about-reveal', {
-          scrollTrigger: { trigger: el, start: 'top 72%' },
-          y: 36,
-          opacity: 0,
-          duration: 1,
-          stagger: 0.12,
-          ease: 'power3.out'
-        });
-
-        gsap.from('.about-rule', {
-          scrollTrigger: { 
-            trigger: '.about-rule', 
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          },
-          scaleX: 0,
-          transformOrigin: 'left center',
-          duration: 1.2,
-          ease: 'power3.inOut'
-        });
-
         gsap.to('.about-media img', {
           scrollTrigger: { trigger: '.about-media', start: 'top bottom', end: 'bottom top', scrub: true },
           yPercent: -12,
           ease: 'none'
-        });
-
-        gsap.from('.about-stat', {
-          scrollTrigger: { trigger: '.about-stats', start: 'top 85%' },
-          y: 24,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power3.out'
-        });
-
-        gsap.from('.about-principle', {
-          scrollTrigger: { trigger: '.about-principles', start: 'top 85%' },
-          y: 24,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power3.out'
         });
 
         // Parallax floating objects - increased distance for noticeable effect

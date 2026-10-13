@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { SERVICES } from '../data/services';
 import ParallaxIcons from '../components/ParallaxIcons';
@@ -11,8 +10,6 @@ import iconCones from '../assets/construction-cones.webp';
 import iconGlasses from '../assets/construction-glasses.webp';
 import iconHammer from '../assets/construction-hammer.webp';
 import '../styles/ServicesPage.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const CONTACT_HREF = '/contact';
 
@@ -51,26 +48,6 @@ const Services: React.FC = () => {
         gsap.timeline({ defaults: { ease: 'power3.out' } })
           // the 7 builds cell by cell: across the bar, then down the stem
           .from('.sp-cell-item', { opacity: 0, y: 14, duration: 0.5, stagger: 0.08 }, 0.1);
-
-        // Fade the card, slide only its contents: a transform on the card itself would
-        // skew the browser's anchor-scroll target when a hero tile is clicked.
-        const cards = gsap.utils.toArray<HTMLElement>('.sp-card');
-        gsap.set(cards, { opacity: 0 });
-        gsap.set('.sp-card > *', { y: 32 });
-        ScrollTrigger.batch(cards, {
-          start: 'top 88%',
-          once: true,
-          onEnter: (batch) => {
-            gsap.to(batch, { opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out' });
-            batch.forEach((card, i) =>
-              gsap.to(card.children, { y: 0, duration: 0.9, stagger: 0.08, delay: i * 0.1, ease: 'power3.out' }),
-            );
-          },
-        });
-        gsap.from('.sp-cta-card', {
-          y: 30, opacity: 0, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: '.sp-cta', start: 'top 85%', once: true },
-        });
       });
     }, el);
 

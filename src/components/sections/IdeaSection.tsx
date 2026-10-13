@@ -1,10 +1,6 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import '../../styles/IdeaSection.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const PILLARS = [
   {
@@ -26,36 +22,8 @@ const PILLARS = [
 
 /** Bridge out of the hero: continues the "ground to sky" story. */
 const IdeaSection: React.FC = () => {
-  const root = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    const el = root.current;
-    if (!el) return;
-
-    const ctx = gsap.context(() => {
-      gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.timeline({
-          defaults: { ease: 'power3.out' },
-          scrollTrigger: { 
-            trigger: el, 
-            start: 'top 72%',
-            toggleActions: 'play none none reverse'
-          },
-        })
-          .from('.idea-index', { autoAlpha: 0, y: 12, duration: 0.6 })
-          .from('.idea-title-line', { autoAlpha: 0, y: 36, duration: 0.9, stagger: 0.1, ease: 'expo.out' }, 0.1)
-          .from('.idea-aside > *', { autoAlpha: 0, y: 18, duration: 0.7, stagger: 0.08 }, 0.35)
-          .from('.idea-rule-line', { scaleX: 0, duration: 1.2, ease: 'power2.inOut' }, 0.5)
-          .from('.idea-rule-tick', { autoAlpha: 0, duration: 0.4, stagger: 0.08 }, 0.9)
-          .from('.idea-pillar', { autoAlpha: 0, y: 28, duration: 0.8, stagger: 0.12 }, 0.9);
-      });
-    }, el);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={root} id="idea" className="idea-section" aria-labelledby="idea-title">
+    <section id="idea" className="idea-section" aria-labelledby="idea-title">
       <div className="idea-inner">
         <header className="idea-head">
           <div>
